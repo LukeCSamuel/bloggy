@@ -1,0 +1,7 @@
+# Use this file to run vite dev server
+FROM node:24-alpine
+WORKDIR /app/bloggy-client
+COPY ./bloggy-client/package.json ./
+RUN npm install
+COPY ./bloggy-client ./
+ENTRYPOINT ["npm", "run", "dev"]

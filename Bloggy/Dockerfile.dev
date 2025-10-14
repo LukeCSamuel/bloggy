@@ -1,0 +1,6 @@
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS final
+WORKDIR /src
+COPY . /src
+EXPOSE 4080
+EXPOSE 4443
+ENTRYPOINT ["dotnet", "watch", "run"]
