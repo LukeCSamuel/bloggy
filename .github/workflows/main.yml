@@ -1,0 +1,40 @@
+name: Main
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Bloggy/**'
+      - '.github/workflows/main.yml'
+
+  # Allow manual trigger
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.BLOGGY_AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.BLOGGY_AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.BLOGGY_AZURE_SUBSCRIPTION_ID }}
+
+      - name: Build and deploy Container App
+        uses: azure/container-apps-deploy-action@v1
+        with:
+          appSourcePath: ${{ github.workspace }}/Bloggy
+          acrName: caswell
+          resourceGroup: Personal
+          location: eastus2
+          containerAppName: bloggy
+          containerAppEnvironment: yuki-bot-env
+          imageToBuild: caswell.azurecr.io/personal/bloggy:${{ github.sha }}
+          environmentVariables: COSMOS_CONNECTION_STRING=secretref:cosmos-connection-string

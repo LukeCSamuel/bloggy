@@ -11,12 +11,12 @@ export default defineConfig({
   build: {
     minify: !isDevelopment,
     sourcemap: isDevelopment,
-    watch: {
+    watch: isDevelopment ? {
       chokidar: {
         // This is necessary because the files aren't in WSL, but the docker container is :(
         usePolling: true,
       },
-    },
+    } : null,
     outDir: '../wwwroot',
     emptyOutDir: true,
     lib: {

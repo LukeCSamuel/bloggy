@@ -11,14 +11,16 @@
     <meta property="og:url" content="https://halloween.caswell.dev/" />
     <meta property="og:image" content="https://halloween.caswell.dev/halloween-og-image.png" />
 
+    <script type="importmap"></script>
+
     <link rel="stylesheet" href="https://use.typekit.net/tju5uex.css" />
     <link rel="icon" href="~/favicon.png" type="image/png" />
-    <link rel="stylesheet" href="~/main.css"/>
+    <link rel="stylesheet" href="~/main.css" asp-append-version="true"/>
 </head>
 <body>
     @RenderBody()
 
-    <script type="module" src="~/main.js"></script>
+    <script type="module" src="~/main.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
