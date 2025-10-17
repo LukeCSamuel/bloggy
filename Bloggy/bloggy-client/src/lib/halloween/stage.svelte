@@ -26,20 +26,6 @@
 
     setInterval(randomizeBoxLights, 500);
     setInterval(randomizeCanLights, 1000);
-
-    const speakers = document.getElementById("Speakers");
-
-    function randomizeSpeakersBump () {
-      speakers.toggleAttribute('data-speakers-high');
-
-      if (speakers.hasAttribute('data-speakers-high')) {
-        setTimeout(randomizeSpeakersBump, 120);
-      } else {
-        setTimeout(randomizeSpeakersBump, 100 + Math.floor(Math.random() * 300));
-      }
-    }
-
-    randomizeSpeakersBump();
   });
 </script>
 
@@ -3694,46 +3680,5 @@
   .cls-214[data-light-on] {
     opacity: 0.7;
     filter: drop-shadow(0px 0px 20px #d9e021) brightness(1.5);
-  }
-
-  @keyframes speakers-loud {
-    0% {
-      transform: scale(1);
-    }
-
-    10% {
-      transform: scale(1);
-    }
-
-    11% {
-      transform: scale(1.005);
-    }
-
-    12% {
-      transform: scal
-    }
-
-    50% {
-      transform: scale(1.01);
-    }
-
-    100% {
-      transform: scale(1);
-    }
-  }
-
-  #Speakers > g {
-    transform-origin: center;
-    transform-box: fill-box;
-    transform: scale(1);
-    transition: transform ease-in-out 100ms;
-  }
-
-  #Speakers > g:has(circle) {
-    transform-origin: bottom;
-  } 
-
-  #Speakers[data-speakers-high] > g {
-    transform: scale(1.02);
   }
 </style>
