@@ -33,10 +33,6 @@
   em {
     color: color-mix(in srgb, currentColor, transparent 12%);
   }
-
-  br {
-    margin-bottom: 1ex;
-  }
 }
 
 @layer components {

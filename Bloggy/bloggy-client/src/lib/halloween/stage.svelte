@@ -1,3 +1,48 @@
+<script lang="ts">
+  import { onMount } from 'svelte';
+
+  onMount(() => {
+    const boxLights = [...document.querySelectorAll('.cls-107')];
+    const canLights = [...document.querySelectorAll('.cls-214')];
+
+    function randomizeBoxLights () {
+      // Randomly select lights and turn them on
+      for (const _ of Array.from({ length: boxLights.length / 6 })) {
+        const index = Math.floor(Math.random() * boxLights.length);
+        const light = boxLights[index];
+
+        light.toggleAttribute('data-light-on');
+      }
+    }
+
+    function randomizeCanLights () {
+      for (const _ of Array.from({ length: canLights.length / 4 })) {
+        const index = Math.floor(Math.random() * canLights.length);
+        const light = canLights[index];
+
+        light.toggleAttribute('data-light-on');
+      }
+    }
+
+    setInterval(randomizeBoxLights, 500);
+    setInterval(randomizeCanLights, 1000);
+
+    const speakers = document.getElementById("Speakers");
+
+    function randomizeSpeakersBump () {
+      speakers.toggleAttribute('data-speakers-high');
+
+      if (speakers.hasAttribute('data-speakers-high')) {
+        setTimeout(randomizeSpeakersBump, 120);
+      } else {
+        setTimeout(randomizeSpeakersBump, 100 + Math.floor(Math.random() * 300));
+      }
+    }
+
+    randomizeSpeakersBump();
+  });
+</script>
+
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1290 859.17">
   <defs>
     <style>
@@ -3243,14 +3288,14 @@
             <g>
               <rect class="cls-172" x="1096.04" y="34.28" width="176.82" height="67.78" rx="13.33" ry="13.33"/>
               <g>
-                <circle class="cls-107" cx="1118.54" cy="54.99" r="10.09"/>
+                <circle data-light-on class="cls-107" cx="1118.54" cy="54.99" r="10.09"/>
                 <circle class="cls-107" cx="1118.54" cy="81.35" r="10.09"/>
                 <circle class="cls-107" cx="1144.91" cy="54.99" r="10.09"/>
                 <circle class="cls-107" cx="1144.91" cy="81.35" r="10.09"/>
-                <circle class="cls-107" cx="1171.27" cy="54.99" r="10.09"/>
+                <circle data-light-on class="cls-107" cx="1171.27" cy="54.99" r="10.09"/>
                 <circle class="cls-107" cx="1171.27" cy="81.35" r="10.09"/>
                 <circle class="cls-107" cx="1197.64" cy="54.99" r="10.09"/>
-                <circle class="cls-107" cx="1197.64" cy="81.35" r="10.09"/>
+                <circle data-light-on class="cls-107" cx="1197.64" cy="81.35" r="10.09"/>
                 <circle class="cls-107" cx="1224" cy="54.99" r="10.09"/>
                 <circle class="cls-107" cx="1224" cy="81.35" r="10.09"/>
                 <circle class="cls-107" cx="1250.37" cy="54.99" r="10.09"/>
@@ -3266,7 +3311,7 @@
                 <circle class="cls-107" cx="66" cy="81.35" r="10.09"/>
                 <circle class="cls-107" cx="92.36" cy="54.99" r="10.09"/>
                 <circle class="cls-107" cx="92.36" cy="81.35" r="10.09"/>
-                <circle class="cls-107" cx="118.73" cy="54.99" r="10.09"/>
+                <circle data-light-on class="cls-107" cx="118.73" cy="54.99" r="10.09"/>
                 <circle class="cls-107" cx="118.73" cy="81.35" r="10.09"/>
                 <circle class="cls-107" cx="145.09" cy="54.99" r="10.09"/>
                 <circle class="cls-107" cx="145.09" cy="81.35" r="10.09"/>
@@ -3283,16 +3328,16 @@
                 <circle class="cls-107" cx="604.67" cy="81.35" r="10.09"/>
                 <circle class="cls-107" cx="631.03" cy="54.99" r="10.09"/>
                 <circle class="cls-107" cx="631.03" cy="81.35" r="10.09"/>
-                <circle class="cls-107" cx="657.4" cy="54.99" r="10.09"/>
+                <circle data-light-on class="cls-107" cx="657.4" cy="54.99" r="10.09"/>
                 <circle class="cls-107" cx="657.4" cy="81.35" r="10.09"/>
                 <circle class="cls-107" cx="683.76" cy="54.99" r="10.09"/>
-                <circle class="cls-107" cx="683.76" cy="81.35" r="10.09"/>
+                <circle data-light-on class="cls-107" cx="683.76" cy="81.35" r="10.09"/>
                 <circle class="cls-107" cx="710.13" cy="54.99" r="10.09"/>
                 <circle class="cls-107" cx="710.13" cy="81.35" r="10.09"/>
               </g>
             </g>
             <g>
-              <rect class="cls-214" x="1000.57" y="43.72" width="23.75" height="23.75" rx="2.57" ry="2.57" transform="translate(345.31 819.19) rotate(-52)"/>
+              <rect data-light-on class="cls-214" x="1000.57" y="43.72" width="23.75" height="23.75" rx="2.57" ry="2.57" transform="translate(345.31 819.19) rotate(-52)"/>
               <rect class="cls-58" x="1000.57" y="43.72" width="23.75" height="23.75" rx="2.57" ry="2.57" transform="translate(345.31 819.19) rotate(-52)"/>
               <path class="cls-203" d="M1021.89,43.52c-4.7-3.67-5.53-10.46-1.86-15.16l-14.74,18.87c-3.67,4.7-2.84,11.48,1.86,15.16,4.7,3.67,11.48,2.84,15.16-1.86.15-.19.27-.39.41-.58l13.87-17.75c-3.76,4.21-10.18,4.85-14.69,1.33Z"/>
               <path class="cls-158" d="M1020.03,28.36c-3.67,4.7-2.84,11.48,1.86,15.16,4.51,3.52,10.94,2.89,14.69-1.33.16-.18.32-.35.46-.54,3.67-4.7,2.84-11.48-1.86-15.16s-11.48-2.84-15.16,1.86Z"/>
@@ -3316,7 +3361,7 @@
               <path class="cls-158" d="M808.29,28.36c-3.67,4.7-2.84,11.48,1.86,15.16s10.94,2.89,14.69-1.33c.16-.18.32-.35.46-.54,3.67-4.7,2.84-11.48-1.86-15.16-4.7-3.67-11.48-2.84-15.16,1.86Z"/>
             </g>
             <g>
-              <rect class="cls-214" x="264.11" y="43.72" width="23.75" height="23.75" rx="2.57" ry="2.57" transform="translate(402.08 307.3) rotate(-128)"/>
+              <rect data-light-on class="cls-214" x="264.11" y="43.72" width="23.75" height="23.75" rx="2.57" ry="2.57" transform="translate(402.08 307.3) rotate(-128)"/>
               <rect class="cls-58" x="264.11" y="43.72" width="23.75" height="23.75" rx="2.57" ry="2.57" transform="translate(402.08 307.3) rotate(-128)"/>
               <path class="cls-203" d="M266.54,43.52c4.7-3.67,5.53-10.46,1.86-15.16l14.74,18.87c3.67,4.7,2.84,11.48-1.86,15.16-4.7,3.67-11.48,2.84-15.16-1.86-.15-.19-.27-.39-.41-.58l-13.87-17.75c3.76,4.21,10.18,4.85,14.69,1.33Z"/>
               <path class="cls-158" d="M268.4,28.36c3.67,4.7,2.84,11.48-1.86,15.16-4.51,3.52-10.94,2.89-14.69-1.33-.16-.18-.32-.35-.46-.54-3.67-4.7-2.84-11.48,1.86-15.16,4.7-3.67,11.48-2.84,15.16,1.86Z"/>
@@ -3352,7 +3397,7 @@
               <path class="cls-170" d="M337.23,574.21l18.34-29.37,16.46,27.39c.35.57.4,1.28.16,1.9l-1.37,3.5c-.18.46-.51.84-.93,1.08l-30.04,17.33-.74-1.31-1.87-20.53Z"/>
             </g>
           </g>
-          <g id="Speakers">
+          <g id="Speakers" data-speakers-high>
             <g>
               <rect class="cls-205" x="1032.27" y="644.84" width="170.83" height="147.17" rx="9.17" ry="9.17"/>
               <g>
@@ -3547,3 +3592,148 @@
     </g>
   </g>
 </svg>
+
+<style>
+  @keyframes props-dropIn {
+    0% {
+      transform: translateY(-100%);
+    }
+
+    100% {
+      transform: translateY(0%);
+    }
+  }
+
+  #Props {
+    transform: translateY(-100%);
+    animation: props-dropIn 1.5s cubic-bezier(0.34, 1.25, 0.64, 1) forwards;
+    animation-delay: 1.2s;
+  }
+
+  @keyframes screen-on {
+    from {
+      filter: brightness(0);
+    }
+
+    to {
+      filter: brightness(1);
+    }
+  }
+
+  #Screen {
+    filter: brightness(0);
+    animation: screen-on 1.5s linear forwards;
+    animation-delay: 1s;
+  }
+
+  @keyframes text-fadeUp {
+    0% {
+      opacity: 0;
+      transform: scale(0.8)
+    }
+
+    80% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  #Text_Halloween, #Text_Party {
+    opacity: 0;
+    transform-origin: center;
+    animation: text-fadeUp 720ms ease-out forwards;
+  }
+
+  #Text_Halloween {
+    animation-delay: 1.7s;
+  }
+
+  #Text_Party {
+    animation-delay: 1.75s;
+  }
+
+  @keyframes pumpkin-spinIn {
+    from {
+      opacity: 0;
+      transform: scale(0.2) rotate(-1080deg);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+  }
+
+  #Dashing_Pumpkin {
+    opacity: 0;
+    transform-origin: 50% 75%;
+    animation: pumpkin-spinIn 480ms linear forwards;
+    animation-delay: 1s;
+  }
+
+  .cls-107 {
+    filter: brightness(0.3) drop-shadow(0px 0px 0px white);
+    transition: filter 240ms linear;
+  }
+
+  .cls-107[data-light-on] {
+    filter: brightness(1) drop-shadow(0px 0px 10px white);
+  }
+
+  .cls-214 {
+    opacity: 0.3;
+    filter: drop-shadow(0px 0px 0px #d9e021) brightness(1);
+    transition: filter 400ms linear, opacity 400ms linear;
+  }
+
+  .cls-214[data-light-on] {
+    opacity: 0.7;
+    filter: drop-shadow(0px 0px 20px #d9e021) brightness(1.5);
+  }
+
+  @keyframes speakers-loud {
+    0% {
+      transform: scale(1);
+    }
+
+    10% {
+      transform: scale(1);
+    }
+
+    11% {
+      transform: scale(1.005);
+    }
+
+    12% {
+      transform: scal
+    }
+
+    50% {
+      transform: scale(1.01);
+    }
+
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  #Speakers > g {
+    transform-origin: center;
+    transform-box: fill-box;
+    transform: scale(1);
+    transition: transform ease-in-out 100ms;
+  }
+
+  #Speakers > g:has(circle) {
+    transform-origin: bottom;
+  } 
+
+  #Speakers[data-speakers-high] > g {
+    transform: scale(1.02);
+  }
+</style>
