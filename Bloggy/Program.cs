@@ -1,7 +1,12 @@
+using Bloggy.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services
+    .AddConfigService()
+    .AddSingleton<CosmosService>();
 
 var app = builder.Build();
 

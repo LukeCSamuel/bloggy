@@ -22,8 +22,13 @@
 
 @layer base {
   a {
-    color: color-mix(in hsl shorter hue, var(--color-moon-blue), var(--color-midnight-black) 10%);
-    text-decoration: underline;
+    color: var(--color-blue-700);
+  }
+
+  @media (hover: hover) {
+    a:hover {
+      text-decoration: underline;
+    }
   }
 
   strong {
@@ -32,6 +37,10 @@
 
   em {
     color: color-mix(in srgb, currentColor, transparent 12%);
+  }
+
+  hr {
+    border-color: color-mix(in srgb, currentColor, transparent 80%);
   }
 }
 

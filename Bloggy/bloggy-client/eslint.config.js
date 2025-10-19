@@ -2,12 +2,27 @@ import js from '@eslint/js';
 import ts from 'typescript-eslint';
 import svelte from 'eslint-plugin-svelte';
 import globals from 'globals';
+import svelteConfig from './svelte.config';
+import eslintPluginUnicorn from 'eslint-plugin-unicorn';
+import stylistic from '@stylistic/eslint-plugin';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
 	js.configs.recommended,
 	...ts.configs.recommended,
 	...svelte.configs['flat/recommended'],
+	stylistic.configs.customize({
+		commaDangle: 'always-multiline',
+		semi: true,
+	}),
+	...[
+		eslintPluginUnicorn.configs.recommended,
+		{
+			rules: {
+				'unicorn/better-regex': 'warn',
+			},
+		},
+	],
 	{
 		languageOptions: {
 			globals: {
@@ -17,14 +32,17 @@ export default [
 		}
 	},
 	{
-		files: ['**/*.svelte'],
+		files: ['**/*.svelte', '**/*.svelte.ts', '**/*.svelte.js'],
 		languageOptions: {
 			parserOptions: {
-				parser: ts.parser
+				projectService: true,
+				extraFileExtensions: ['.svelte'],
+				parser: ts.parser,
+				svelteConfig,
 			}
 		}
 	},
 	{
 		ignores: ['build/', 'dist/']
-	}
+	},
 ];

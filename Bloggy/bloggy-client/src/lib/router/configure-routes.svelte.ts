@@ -118,7 +118,11 @@ export class Route<TParams extends object> {
     const url = new URL(href);
     const remaining = url.pathname;
 
+    console.log(`Matching route:"${this.name}" on path:"${remaining}"`);
+
     const matchResult = this.intermediateMatch(remaining);
+
+    console.log(` > result:`, matchResult);
 
     if (matchResult) {
       const query = Object.fromEntries(url.searchParams.entries());
@@ -134,6 +138,9 @@ export class Route<TParams extends object> {
 
   private intermediateMatch (remaining: string): IntermediateMatchedRoute<TParams> | false {
     const matchResult = this._subMatcher(remaining);
+
+    console.log(` > matching sub-route:"${this.name}" on path:"${remaining}"`, matchResult);
+
     if (!matchResult.isMatch) {
       return false;
     }
@@ -158,13 +165,13 @@ export class Route<TParams extends object> {
       }
     }
 
-    // Nothing left to match
-    if (newRemaining === '' && !this._nestedRoutes?.length) {
+    // Nothing left to match, except possibly a trailing '/'
+    if (/^\/?$/.test(newRemaining) && !this._nestedRoutes?.length) {
       return {
         name: this.name,
         params: matchResult.params,
         views: [this._view],
-        raw: remaining,
+        raw: remaining + newRemaining,
       };
     }
 
@@ -177,7 +184,6 @@ export type ParamToType<T> = T extends Param<infer TKey, infer TValue> ? { [K in
 
 
 // TODO: add functionality to allow building a route URL when given params
-// TODO: automatically make `/` at end of match optional
 
 export function match (strings: TemplateStringsArray): RouteMatcher<object>
 export function match<TParam0 extends Param<string | symbol, unknown>> (strings: TemplateStringsArray, param0: TParam0): RouteMatcher<ParamToType<TParam0>>;
@@ -219,9 +225,52 @@ export function match (strings: TemplateStringsArray, ...params: Param<string | 
 
 export interface RouteDefinition {
   name: string
-  match: RouteMatcher<object>
+  match: RouteMatcher<object> | RegExp | string
   view: Component
   nested?: RouteDefinition[]
+}
+
+/**
+ * Creates a route matcher from a regular expression
+ * @param regexp A regular expression used the match the route
+ */
+function createMatcherFromRegExp (regexp: RegExp): RouteMatcher<object> {
+  return (remaining: string) => {
+    const [raw] = regexp.exec(remaining) ?? [];
+    // Check that the regex matches, and enforce that the match occurs at the beginning
+    //   of the remaining string in case the regex doesn't
+    if (raw && remaining.startsWith(raw)) {
+      return {
+        isMatch: true,
+        raw,
+        params: {},
+      };
+    } else {
+      return {
+        isMatch: false,
+      };
+    }
+  };
+}
+
+/**
+ * Creates a route matcher from a string
+ * @param raw A plain string used to match the route
+ */
+function createMatcherFromString (raw: string): RouteMatcher<object> {
+  return (remaining: string) => {
+    if (remaining.startsWith(raw)) {
+      return {
+        isMatch: true,
+        raw,
+        params: {},
+      };
+    } else {
+      return {
+        isMatch: false,
+      };
+    }
+  };
 }
 
 /**
@@ -232,9 +281,14 @@ export function defineRoutes<T extends RouteDefinition[]> (routeDefinitions: T):
   const routes = [];
   for (const route of routeDefinitions) {
     const nested = route.nested ? defineRoutes(route.nested) : undefined;
+    const match = route.match instanceof RegExp 
+      ? createMatcherFromRegExp(route.match)
+      : typeof route.match === 'string'
+      ? createMatcherFromString(route.match)
+      : route.match;
     routes.push(new Route(
       route.name,
-      route.match,
+      match,
       route.view,
       nested,
     ));

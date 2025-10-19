@@ -146,6 +146,11 @@
 </div>
 
 <style>
+  a {
+    color: color-mix(in hsl shorter hue, var(--color-moon-blue), var(--color-midnight-black) 10%);
+    text-decoration: underline;
+  }
+
   @keyframes wipe-on {
     0% {
       opacity: 0;

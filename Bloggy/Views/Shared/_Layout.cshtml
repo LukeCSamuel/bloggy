@@ -1,20 +1,48 @@
-﻿<!DOCTYPE html>
+﻿@{
+    bool isBloggy = ViewData["IsBloggy"] is true;
+    string ogUrl = ViewData["Path"] is string path
+        ? $"https://halloween.caswell.dev{path}"
+        : "https://halloween.caswell.dev/";
+
+    string favicon = isBloggy
+        ? "https://s.caswell.dev/bloggy/img/favicon-bloggy.png"
+        : "https://s.caswell.dev/bloggy/img/halloween-favicon.png";
+
+    string title = isBloggy
+        ? "Bloggy"
+        : "Happy Halloween!";
+
+    string desc = isBloggy
+        ? "A malevolent social media syndicate"
+        : "An invitation to the greatest halloween party of the year";
+
+    string ogDesc = isBloggy
+        ? "Join Bloggy, the malevolent social media syndicate that's taking over the internet!"
+        : "You're invited to a Halloween Party!";
+
+    string ogImage = isBloggy
+        ? "https://s.caswell.dev/bloggy/img/favicon-bloggy.png"
+        : "https://s.caswell.dev/bloggy/img/halloween-og-image.png";
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>@title</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="An invitation to the greatest halloween party of the year" />
+    <meta name="description" content="@desc" />
     <meta name="robots" content="noindex, nofollow" />
-    <meta property="og:title" content="Happy Halloween!" />
+    <meta property="og:title" content="@title" />
     <meta property="og:type" content="website" />
-    <meta property="og:description" content="You're invited to a Halloween Party!" />
-    <meta property="og:url" content="https://halloween.caswell.dev/" />
-    <meta property="og:image" content="https://halloween.caswell.dev/halloween-og-image.png" />
+    <meta property="og:description" content="@ogDesc" />
+    <meta property="og:url" content="@ogUrl" />
+    <meta property="og:image" content="@ogImage" />
 
     <script type="importmap"></script>
 
     <link rel="stylesheet" href="https://use.typekit.net/tju5uex.css" />
-    <link rel="icon" href="~/favicon.png" type="image/png" />
+    <link rel="icon" href="@favicon" type="image/png" />
     <link rel="stylesheet" href="~/main.css" asp-append-version="true"/>
 </head>
 <body>
