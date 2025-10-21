@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Bloggy.Services
+@inject ConfigService ConfigService
+@{
     bool isBloggy = ViewData["IsBloggy"] is true;
     string ogUrl = ViewData["Path"] is string path
         ? $"https://halloween.caswell.dev{path}"
@@ -29,6 +31,13 @@
 <html lang="en">
 <head>
     <title>@title</title>
+    @if (isBloggy) {
+        @if (ConfigService.AppEnvironment == AppEnvironment.Development) {
+            <base href="/bloggy" />
+        } else {
+            <base href="https://halloween.caswell.dev/bloggy" />
+        }
+    }
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="@desc" />

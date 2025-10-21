@@ -1,5 +1,10 @@
+<script>
+  import Link from "../router/link.svelte";
+</script>
+
+
 <section>
-  <h1>Community Guidelines</h1>
+  <h1 class="sticky top-4">Community Guidelines</h1>
 
   <p>
     <strong>
@@ -11,8 +16,8 @@
     Bloggy is a social networking application provided by Bloggy, Inc. ("<strong
       >we</strong
     >", "<strong>us</strong>", "<strong>our</strong>"). Together with the Bloggy
-    <a href="./terms">Terms of Service</a> and
-    <a href="./privacy">Privacy Policy</a>, these Community Guidelines ("<strong
+    <Link route={{ name: 'support/terms' }}>Terms of Service</Link> and
+    <Link route={{ name: 'support/privacy' }}>Privacy Policy</Link>, these Community Guidelines ("<strong
       >Guidelines</strong
     >") govern your use of the Bloggy website, and services (collectively, "<strong
       >Bloggy</strong
@@ -79,7 +84,7 @@
     Ultimately, however, this discretion rests with us, and we reserve the right
     to make final decisions about how to handle any specific piece of content or
     account. You can learn more about our enforcement procedures and appeals
-    process in our <a href="./terms">Terms of Service</a>.
+    process in our <Link route={{ name: 'support/terms' }}>Terms of Service</Link>.
   </p>
 
   <h2>Our Principles:</h2>

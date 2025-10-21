@@ -1,5 +1,9 @@
+<script>
+  import Link from "../router/link.svelte";
+</script>
+
 <section>
-  <h1>Terms of Service</h1>
+  <h1 class="sticky top-4">Terms of Service</h1>
 
   <p>
     <strong>
@@ -24,38 +28,38 @@
   <h2>Table of Contents</h2>
   <ol>
     <li>
-      <a href="#eligibility-and-age-verification">
+      <Link href="#eligibility-and-age-verification">
         Eligibility and Age Verification
-      </a>
+      </Link>
     </li>
     <li>
-      <a href="#account-registration-and-responsibilities">
+      <Link href="#account-registration-and-responsibilities">
         Account Registration and Responsibilities
-      </a>
+      </Link>
     </li>
-    <li><a href="#user-content">User Content</a></li>
+    <li><Link href="#user-content">User Content</Link></li>
     <li>
-      <a href="#proactive-moderation">
+      <Link href="#proactive-moderation">
         Proactive Moderation and Illegal Content
-      </a>
+      </Link>
     </li>
     <li>
-      <a href="#discover-feed"> Discover Feed and Recommender Systems </a>
+      <Link href="#discover-feed"> Discover Feed and Recommender Systems </Link>
     </li>
-    <li><a href="#termination">Termination</a></li>
-    <li><a href="#third-party-services">Third-Party Services</a></li>
-    <li><a href="#open-source-software">Open Source Software</a></li>
-    <li><a href="#warranty-disclaimer">Warranty Disclaimer</a></li>
-    <li><a href="#indemnification">Indemnification</a></li>
-    <li><a href="#limitation-of-liability">Limitation of Liability</a></li>
+    <li><Link href="#termination">Termination</Link></li>
+    <li><Link href="#third-party-services">Third-Party Services</Link></li>
+    <li><Link href="#open-source-software">Open Source Software</Link></li>
+    <li><Link href="#warranty-disclaimer">Warranty Disclaimer</Link></li>
+    <li><Link href="#indemnification">Indemnification</Link></li>
+    <li><Link href="#limitation-of-liability">Limitation of Liability</Link></li>
     <li>
-      <a href="#governing-law-dispute-resolution">
+      <Link href="#governing-law-dispute-resolution">
         Governing Law, Jurisdiction, Venue, Dispute Resolution, and Arbitration
-      </a>
+      </Link>
     </li>
-    <li><a href="#updates-to-terms">Updates to Terms</a></li>
-    <li><a href="#intellectual-property">Intellectual Property</a></li>
-    <li><a href="#general-terms">General Terms</a></li>
+    <li><Link href="#updates-to-terms">Updates to Terms</Link></li>
+    <li><Link href="#intellectual-property">Intellectual Property</Link></li>
+    <li><Link href="#general-terms">General Terms</Link></li>
   </ol>
 
   <hr />
@@ -127,14 +131,14 @@
       <u>Your Responsibility.</u>
       You are solely responsible for your Content. You agree that your Content will
       comply with all applicable laws and with the Bloggy
-      <a href="./community-guidelines">Community Guidelines</a>. Bloggy is not
+      <Link route={{ name: 'support/community-guidelines' }}>Community Guidelines</Link>. Bloggy is not
       obligated to actively monitor or control your Content.
     </li>
     <li>
       <u>Use by Others.</u>
       Bloggy does not control how others may use your Content. If you believe someone
       is using your Content in a way that violates these Terms or the
-      <a href="./community-guidelines">Community Guidelines</a>, please follow
+      <Link route={{ name: 'support/community-guidelines' }}>Community Guidelines</Link>, please follow
       the Complaints and Appeals process outlined below.
     </li>
     <li>
@@ -169,7 +173,7 @@
         <li>
           <strong>Enforce Our Policies:</strong>
           Remove, block, or modify your Content if we believe it violates these Terms,
-          our <a href="./community-guidelines">Community Guidelines</a>, or
+          our <Link route={{ name: 'support/community-guidelines' }}>Community Guidelines</Link>, or
           other applicable policies.
         </li>
         <li>
@@ -185,7 +189,7 @@
       <u>Content Deletion.</u>
       If you delete your account, we will use reasonable efforts to remove your Content
       from Bloggy, in accordance with applicable laws and with our
-      <a href="./privacy">Privacy Policy</a>.
+      <Link route={{ name: 'support/privacy' }}>Privacy Policy</Link>.
     </li>
   </ol>
 
@@ -568,8 +572,8 @@
     <li>
       <u>Entire Agreement.</u>
       These Terms, together with the Bloggy
-      <a href="./community-guidelines">Community Guidelines</a>, and
-      <a href="./privacy">Privacy Policy</a>, constitute the complete and
+      <Link route={{ name: 'support/community-guidelines' }}>Community Guidelines</Link>, and
+      <Link route={{ name: 'support/privacy' }}>Privacy Policy</Link>, constitute the complete and
       exclusive agreement between you and Bloggy regarding your use of Bloggy.
       They supersede and replace any prior or contemporaneous agreements,
       understandings, or communications—whether oral or written—between you and

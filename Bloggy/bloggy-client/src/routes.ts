@@ -16,7 +16,7 @@ export const router = new AppRouter([
   },
   {
     name: 'support',
-    match: /\/support|\/bloggy\/support/,
+    match: '/bloggy/support',
     view: SupportLayout,
     nested: [
       {

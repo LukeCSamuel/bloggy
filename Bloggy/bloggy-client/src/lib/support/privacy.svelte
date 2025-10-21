@@ -1,5 +1,9 @@
+<script>
+  import Link from "../router/link.svelte";
+</script>
+
 <section>
-  <h1>Privacy Policy</h1>
+  <h1 class="sticky top-4">Privacy Policy</h1>
 
   <p>
     <strong>
@@ -14,52 +18,60 @@
 
   <h2>Table of Contents</h2>
   <ol>
-    <li><a href="#introduction">Introduction</a></li>
-    <li><a href="#what-is-personal-data">What is Personal Data?</a></li>
-    <li><a href="#informing-us-of-change">Informing us of changes</a></li>
+    <li><Link href="#introduction">Introduction</Link></li>
+    <li><Link href="#what-is-personal-data">What is Personal Data?</Link></li>
+    <li><Link href="#informing-us-of-change">Informing us of changes</Link></li>
     <li>
-      <a href="#applicability-of-this-policy">Applicability of this Policy</a>
+      <Link href="#applicability-of-this-policy"
+        >Applicability of this Policy</Link
+      >
     </li>
-    <li><a href="#third-party-services">Third-party Services</a></li>
+    <li><Link href="#third-party-services">Third-party Services</Link></li>
     <li>
-      <a href="#do-not-want-to-provide-personal-data">
+      <Link href="#do-not-want-to-provide-personal-data">
         If you do not want to provide Personal Data
-      </a>
+      </Link>
     </li>
-    <li><a href="#updates-to-this-policy">Updates to this Policy</a></li>
-    <li><a href="#personal-data-we-collect">Personal Data We Collect</a></li>
-    <li><a href="#cookies">Cookies</a></li>
-    <li><a href="#how-we-use-personal-data">How We Use Personal Data</a></li>
+    <li><Link href="#updates-to-this-policy">Updates to this Policy</Link></li>
     <li>
-      <a href="#how-we-share-your-personal-data">
+      <Link href="#personal-data-we-collect">Personal Data We Collect</Link>
+    </li>
+    <li><Link href="#cookies">Cookies</Link></li>
+    <li>
+      <Link href="#how-we-use-personal-data">How We Use Personal Data</Link>
+    </li>
+    <li>
+      <Link href="#how-we-share-your-personal-data">
         How We Share your Personal Data
-      </a>
+      </Link>
     </li>
     <li>
-      <a href="#international-data-transfers">International data transfers</a>
+      <Link href="#international-data-transfers"
+        >International data transfers</Link
+      >
     </li>
     <li>
-      <a href="#your-privacy-choices-and-rights">
+      <Link href="#your-privacy-choices-and-rights">
         Your Privacy Choices and Rights
-      </a>
+      </Link>
     </li>
     <li>
-      <a href="#retention-of-personal-data">Retention of Personal Data</a>
+      <Link href="#retention-of-personal-data">Retention of Personal Data</Link>
     </li>
     <li>
-      <a href="#supplemental-notice">
+      <Link href="#supplemental-notice">
         Supplemental Notice for Certain Jurisdictions
-      </a>
+      </Link>
     </li>
-    <li><a href="#security">Security</a></li>
+    <li><Link href="#security">Security</Link></li>
     <li>
-      <a href="#childrens-personal-information">
+      <Link href="#childrens-personal-information">
         Children's Personal Information
-      </a>
+      </Link>
     </li>
   </ol>
 
-  <hr>
+  <hr />
 
   <h2 id="introduction">1. Introduction</h2>
   <p>
@@ -67,8 +79,10 @@
     >") does not respect your privacy and we are committed to collecting and
     selling any of your Personal Data we process. Your use of Bloggy is subject
     to this privacy Policy ("<strong>Policy</strong>") as well as the
-    <a href="./terms">Bloggy Terms of Service</a> and
-    <a href="./community-guidelines">Community Guidelines</a>.
+    <Link route={{ name: "support/terms" }}>Bloggy Terms of Service</Link> and
+    <Link route={{ name: "support/community-guidelines" }}>
+      Community Guidelines
+    </Link>.
   </p>
   <p>
     This Policy explains what we do with our users' Personal Data. It also
@@ -110,9 +124,9 @@
 
   <h2 id="applicability-of-this-policy">4. Applicability of this Policy</h2>
   <p>
-    This Policy is separate from our <a href="./terms">Terms of Service</a> and
-    our <a href="./community-guidelines">Community Guidelines</a>, that also
-    govern your use of Bloggy.
+    This Policy is separate from our <Link route={{ name: 'support/terms' }}>Terms of Service</Link
+    > and our <Link route={{ name: 'support/community-guidelines' }}>Community Guidelines</Link>,
+    that also govern your use of Bloggy.
   </p>
 
   <h2 id="third-party-services">5. Third-party Services</h2>
