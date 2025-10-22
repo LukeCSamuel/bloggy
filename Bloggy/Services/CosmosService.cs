@@ -69,28 +69,37 @@ namespace Bloggy.Services
 
     public async Task UpdateAsync<T>(T model, ClaimsPrincipal? user = null, bool force = false) where T : CosmosModel
     {
-      var container = await GetContainerAsync();
-
       // Check if the model requires authorization before proceeding
       if (!force && model is AuthorizedCosmosModel withOwner)
       {
-        if (user is null)
-        {
-          throw new AuthorizationRequiredException();
-        }
-
-        // Check owner of model in database
-        var existing = await GetByIdAsync<T>(model.id);
-        var ownerId = existing is AuthorizedCosmosModel owned ? owned.ownerId : withOwner.ownerId;
-        var actorId = AuthService.GetUserId(user);
-        if (actorId != ownerId)
-        {
-          throw new AuthorizationFailedException();
-        }
+        await AuthorizeAsync(withOwner, user);
       }
 
       // Make the update
+      var container = await GetContainerAsync();
       await container.UpsertItemAsync(model);
+    }
+
+    public Task AuthorizeAsync<T>(T model, ClaimsPrincipal? user) where T : AuthorizedCosmosModel
+    {
+      return AuthorizeAsync(model.id, user, model);
+    }
+
+    public async Task AuthorizeAsync<T>(string entityId, ClaimsPrincipal? user, T? model = null) where T : AuthorizedCosmosModel
+    {
+      if (user is null)
+      {
+        throw new AuthorizationRequiredException();
+      }
+
+      // Check owner of model in database
+      var existing = await GetByIdAsync<T>(entityId);
+      var ownerId = existing is AuthorizedCosmosModel owned ? owned.ownerId : model?.ownerId;
+      var actorId = AuthService.GetUserId(user);
+      if (ownerId is not null && actorId != ownerId)
+      {
+        throw new AuthorizationFailedException();
+      }
     }
 
     private async Task<IEnumerable<T>> ExtractResults<T>(FeedIterator<T> feed)
@@ -122,6 +131,6 @@ namespace Bloggy.Services
   }
 
   public class AuthorizationRequiredException() : Exception("Authorization is required") { }
-  
+
   public class AuthorizationFailedException() : Exception("The user is not authorized to complete this action") { }
 }

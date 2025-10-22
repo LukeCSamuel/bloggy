@@ -1,8 +1,9 @@
-import { defineConfig } from 'vite'
-import { svelte } from '@sveltejs/vite-plugin-svelte'
+/* eslint-disable unicorn/no-null */
+/* eslint-disable @stylistic/multiline-ternary */
+import { defineConfig } from 'vite';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { fileURLToPath } from 'node:url';
 import tailwindcss from '@tailwindcss/vite';
-import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 const isDevelopment = process.env.APP_ENVIRONMENT === 'development';
 
@@ -29,19 +30,11 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@": fileURLToPath(new URL("./src", import.meta.url)),
+      '@': fileURLToPath(new URL('src', import.meta.url)),
     },
   },
   plugins: [
     tailwindcss(),
     svelte(),
-    viteStaticCopy({
-      targets: [
-        {
-          src: 'public/**/*',
-          dest: '.'
-        }
-      ]
-    }),
   ],
 });

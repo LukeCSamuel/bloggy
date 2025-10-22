@@ -21,13 +21,7 @@ namespace Bloggy.Controllers
         created = DateTime.Now
       };
 
-      var registrationPrincipal = new ClaimsPrincipal([
-        new ClaimsIdentity([
-          new Claim(ClaimTypes.NameIdentifier, user.id),
-        ]),
-      ]);
-
-      await cosmos.UpdateAsync(user, registrationPrincipal);
+      await cosmos.UpdateAsync(user, force: true);
       var token = auth.CreateUserToken(user);
 
       return Ok(new AuthDto

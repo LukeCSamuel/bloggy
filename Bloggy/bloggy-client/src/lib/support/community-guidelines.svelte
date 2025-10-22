@@ -129,8 +129,7 @@
   }
 
   h1,
-  h2,
-  h3 {
+  h2 {
     @apply font-slab font-semibold;
   }
 
@@ -140,10 +139,6 @@
 
   h2 {
     @apply text-xl mt-8 mb-3;
-  }
-
-  h3 {
-    @apply mt-2 mb-2;
   }
 
   ol {

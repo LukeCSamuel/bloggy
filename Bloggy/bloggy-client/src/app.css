@@ -42,6 +42,10 @@
   hr {
     border-color: color-mix(in srgb, currentColor, transparent 80%);
   }
+
+  input[type=text] {
+    border-bottom: --spacing(0.5) solid var(--color-blue-300);
+  }
 }
 
 @layer components {
@@ -51,6 +55,31 @@
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+
+  .c-btn {
+    font-family: var(--font-slab);
+    border: --spacing(0.25) solid var(--color-black);
+    border-bottom-width: --spacing(1.5);
+    transition: transform 50ms linear, clip-path 50ms linear;
+    @apply flex items-center justify-center;
+  }
+
+  .c-btn:disabled {
+    clip-path: rect(auto 100% calc(100% - --spacing(1.25)) auto);
+  }
+
+  .c-btn:active:not(:disabled) {
+    /* border-bottom-width: --spacing(1); */
+    transform: translateY(--spacing(0.5));
+    clip-path: rect(auto 100% calc(100% - --spacing(0.5)) auto);
+  }
+
+  @media (hover: hover) {
+    .c-btn:hover:not(:active):not(:disabled) {
+      transform: translateY(calc(-1 * --spacing(0.5)));
+      @apply shadow-lg;
+    }
   }
 }
 

@@ -37,4 +37,4 @@ jobs:
           containerAppName: bloggy
           containerAppEnvironment: yuki-bot-env
           imageToBuild: caswell.azurecr.io/personal/bloggy:${{ github.sha }}
-          environmentVariables: COSMOS_CONNECTION_STRING=secretref:cosmos-connection-string AUTHENTICATION_JWT_KEY=secretref:authentication-jwt-key
+          environmentVariables: COSMOS_CONNECTION_STRING=secretref:cosmos-connection-string AUTHENTICATION_JWT_KEY=secretref:authentication-jwt-key BLOB_STORAGE_CONNECTION_STRING=secretref:blob-storage-connection-string

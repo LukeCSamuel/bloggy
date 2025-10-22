@@ -16,7 +16,9 @@ builder.Services.AddProblemDetails();
 builder.Services
     .AddSingleton(env)
     .AddSingleton<CosmosService>()
-    .AddSingleton<AuthService>();
+    .AddSingleton<AuthService>()
+    .AddSingleton<BlobService>()
+    .AddSingleton<ImageService>();
 
 builder.Services
     .AddAuthentication(options =>
