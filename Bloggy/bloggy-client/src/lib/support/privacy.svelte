@@ -3,7 +3,7 @@
 </script>
 
 <section>
-  <h1 class="sticky top-4">Privacy Policy</h1>
+  <h1 class="md:sticky top-4">Privacy Policy</h1>
 
   <p>
     <strong>

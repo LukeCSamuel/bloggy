@@ -42,7 +42,7 @@ export const router = new AppRouter([
     view: Layout,
     nested: [{
       name: 'home',
-      match: '/',
+      match: match`${param('_').match(/\/?/)}`,
       view: Home,
     }],
   },

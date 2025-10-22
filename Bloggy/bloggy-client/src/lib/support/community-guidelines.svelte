@@ -4,7 +4,7 @@
 
 
 <section>
-  <h1 class="sticky top-4">Community Guidelines</h1>
+  <h1 class="md:sticky top-4">Community Guidelines</h1>
 
   <p>
     <strong>

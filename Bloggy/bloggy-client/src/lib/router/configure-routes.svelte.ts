@@ -258,10 +258,7 @@ export function match (strings: TemplateStringsArray, ...parameters: Param<strin
         parts.push(string_);
         if (index < parameters.length) {
           const param = parameters[index];
-          const rawValue = String(params[param.name as keyof typeof params]);
-          if (rawValue === undefined) {
-            throw new Error(`Missing parameter "${String(param.name)}" when building route`);
-          }
+          const rawValue = String(params[param.name as keyof typeof params] ?? '');
 
           if (param.tryMatch(String(rawValue)).isMatch) {
             parts.push(rawValue);

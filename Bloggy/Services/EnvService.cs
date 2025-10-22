@@ -2,13 +2,13 @@ using System.Text.Json;
 
 namespace Bloggy.Services
 {
-  internal class ConfigService
+  public class EnvService
   {
     public AppEnvironment AppEnvironment { get; }
     public string CosmosConnectionString { get; }
-    public AppSettings AppSettings { get; }
+    public string JwtKey { get; }
 
-    public ConfigService ()
+    public EnvService ()
     {
       var appEnv = Environment.GetEnvironmentVariable("APP_ENVIRONMENT");
       AppEnvironment = appEnv is "development" ? AppEnvironment.Development : AppEnvironment.Production;
@@ -16,15 +16,9 @@ namespace Bloggy.Services
       CosmosConnectionString = Environment.GetEnvironmentVariable("COSMOS_CONNECTION_STRING")
         ?? throw new Exception("A CosmosDB connection string should be provided in the 'COSMOS_CONNECTION_STRING' environment variable.");
 
-      var settingsFile = AppEnvironment is AppEnvironment.Development ? "appSettings.development.json" : "appSettings.json";
-      AppSettings = JsonSerializer.Deserialize<AppSettings>(File.ReadAllText(settingsFile))
-        ?? new AppSettings()
-        {
-          CosmosDatabaseName = "caswell",
-          CosmosContainerName = "bloggy",
-        };
+      JwtKey = Environment.GetEnvironmentVariable("AUTHENTICATION_JWT_KEY")
+        ?? throw new Exception("A JWT encryption key is needed to provide authentication.");
     }
-
   }
 
   public class AppSettings
@@ -33,19 +27,9 @@ namespace Bloggy.Services
     public required string CosmosContainerName { get; set; }
   }
 
-  internal enum AppEnvironment
+  public enum AppEnvironment
   {
     Development,
     Production
-  }
-
-  static class ConfigServiceExtensions
-  {
-    public static IServiceCollection AddConfigService(this IServiceCollection services)
-    {
-      var config = new ConfigService();
-      return services
-        .AddSingleton(config);
-    }
   }
 }

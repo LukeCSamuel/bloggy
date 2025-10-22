@@ -1,5 +1,5 @@
 ﻿@using Bloggy.Services
-@inject ConfigService ConfigService
+@inject EnvService env
 @{
     bool isBloggy = ViewData["IsBloggy"] is true;
     string ogUrl = ViewData["Path"] is string path
@@ -32,7 +32,7 @@
 <head>
     <title>@title</title>
     @if (isBloggy) {
-        @if (ConfigService.AppEnvironment == AppEnvironment.Development) {
+        @if (env.AppEnvironment == AppEnvironment.Development) {
             <base href="/bloggy" />
         } else {
             <base href="https://halloween.caswell.dev/bloggy" />
