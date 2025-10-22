@@ -8,7 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 var builder = WebApplication.CreateBuilder(args);
 
 var env = new EnvService();
-var jwtIssuer = builder.Configuration["Jwt:Issuer"];
+var jwtIssuer = env.AppSettings.Jwt.Issuer;
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

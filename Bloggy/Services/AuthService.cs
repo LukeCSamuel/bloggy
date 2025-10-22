@@ -16,11 +16,11 @@ namespace Bloggy.Services
     private readonly JwtSecurityTokenHandler _tokenHandler = new();
 
 
-    public AuthService(EnvService env, IConfiguration config)
+    public AuthService(EnvService env)
     {
       var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(env.JwtKey));
       _creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-      _issuer = config["Jwt:Issuer"]!;
+      _issuer = env.AppSettings.Jwt.Issuer;
     }
 
     /// <summary>

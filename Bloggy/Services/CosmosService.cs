@@ -13,11 +13,11 @@ namespace Bloggy.Services
     string ContainerName { get; }
     Task ServiceReady { get; }
 
-    public CosmosService(EnvService env, IConfiguration config)
+    public CosmosService(EnvService env)
     {
 
-      DatabaseName = config["Cosmos:Database"]!;
-      ContainerName = config["Cosmos:ContainerName"]!;
+      DatabaseName = env.AppSettings.Cosmos.Database;
+      ContainerName = env.AppSettings.Cosmos.ContainerName;
 
       CosmosClientOptions? options = null;
       if (env.AppEnvironment is AppEnvironment.Development)

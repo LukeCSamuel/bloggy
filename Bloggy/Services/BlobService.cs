@@ -8,12 +8,12 @@ namespace Bloggy.Services
     string Root { get; }
     string DeliveryHost { get; }
 
-    public BlobService(EnvService env, IConfiguration config)
+    public BlobService(EnvService env)
     {
-      Root = config["Storage:Root"]!;
-      DeliveryHost = config["Storage:DeliveryHost"]!;
+      Root = env.AppSettings.Storage.Root;
+      DeliveryHost = env.AppSettings.Storage.DeliveryHost;
 
-      var containerName = config["Storage:ContainerName"]!;
+      var containerName = env.AppSettings.Storage.ContainerName;
       var serviceClient = new BlobServiceClient(env.BlobStorageConnectionString);
       _client = serviceClient.GetBlobContainerClient(containerName);
     }

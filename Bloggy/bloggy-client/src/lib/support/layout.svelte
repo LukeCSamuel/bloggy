@@ -24,6 +24,6 @@
         Community Guidelines
       </Link>
     </div>
-    <div class="max-w-max mx-auto">© 2025 Bloggy</div>
+    <div class="max-w-max mx-auto">© 2025 Bloggy, a Consummated Soap™ Company</div>
   </div>
 </footer>

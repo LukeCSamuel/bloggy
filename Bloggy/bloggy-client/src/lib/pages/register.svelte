@@ -23,7 +23,12 @@
     if (isValid) {
       await registerAsync({ name });
       await uploadPfpAsync(blob!);
-      router.navigateTo(nextRoute);
+
+      if (auth.isAuthenticated) {
+        router.navigateTo(nextRoute);
+      } else {
+        // TODO: handle error
+      }
     }
   }
 </script>

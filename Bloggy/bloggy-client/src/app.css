@@ -44,7 +44,10 @@
   }
 
   input[type=text] {
+    border: --spacing(0.25) solid var(--color-gray-100);
     border-bottom: --spacing(0.5) solid var(--color-blue-300);
+    border-left: --spacing(1) solid var(--color-red-300);
+    padding-left: --spacing(1);
   }
 }
 
