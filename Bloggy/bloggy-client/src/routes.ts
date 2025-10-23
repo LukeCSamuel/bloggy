@@ -11,6 +11,7 @@ import Register from './lib/pages/register.svelte';
 import About from './lib/support/about.svelte';
 import Trending from './lib/pages/trending.svelte';
 import Score from './lib/pages/score.svelte';
+import Profile from './lib/pages/profile.svelte';
 
 export const router = new AppRouter([
   {
@@ -72,6 +73,11 @@ export const router = new AppRouter([
         name: 'score',
         match: '/score',
         view: Score,
+      },
+      {
+        name: 'profile',
+        match: match`/profile/${param('userId').matchSegment()}`,
+        view: Profile,
       },
     ],
   },

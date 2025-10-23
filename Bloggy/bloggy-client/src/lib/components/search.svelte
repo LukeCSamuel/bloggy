@@ -1,4 +1,4 @@
 <!-- TODO -->
 <div class="grow">
-  <input class="w-full" type="text" placeholder="Search" />
+  <input class="w-full bg-white" type="text" placeholder="Search" />
 </div>

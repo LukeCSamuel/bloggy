@@ -404,6 +404,15 @@ export interface RouterContext<TParameters extends object> {
    */
   route: MatchedRoute<TParameters>;
   /**
+   * Meta info provided about the current route by components
+   */
+  meta: Record<string, unknown>;
+  /**
+   * Assigns the provided meta attributes to the current route
+   * @param newMeta Meta attributes to set for the current route
+   */
+  setMeta: (newMeta: Record<string, unknown>) => Record<string, unknown>;
+  /**
    * Navigates to a specified href or route
    * @param target Destination to which the app should navigate
    */
@@ -429,21 +438,33 @@ export class AppRouter implements RouterContext<object> {
   private _routes: Route<object>[];
   private _state: {
     route: MatchedRoute<object>;
+    meta: Record<string, unknown>;
   };
 
-  route: MatchedRoute<object>;
+  readonly route: MatchedRoute<object>;
+  readonly meta: Record<string, unknown>;
 
   constructor (routeDefinitions: RouteDefinition[]) {
     this._routes = defineRoutes(routeDefinitions);
     this._state = $state({
       route: AppRouter.defaultRoute(),
+      meta: {},
     });
     this.route = $derived(this._state.route);
+    this.meta = $derived(this._state.meta);
 
     if (AppRouter.appRouter) {
       AppRouter.appRouter.stop();
     }
     AppRouter.appRouter = this;
+  }
+
+  /**
+   * Assigns the provided meta attributes to the current route
+   * @param newMeta Meta attributes to set for the current route
+   */
+  setMeta (newMeta: Record<string, unknown>) {
+    return Object.assign(this._state.meta, newMeta);
   }
 
   /**
@@ -524,8 +545,12 @@ export class AppRouter implements RouterContext<object> {
 
     this._state.route = route;
 
-    // If navigating to a different route, scroll to top OR to specified fragment
+    // If navigating to a different route...
     if (routeChanged) {
+      // Clear route meta
+      this._state.meta = {};
+
+      // scroll to top OR to specified fragment
       if (url.hash) {
         // Set a timeout to resolve the element later, after the DOM has updated
         setTimeout(() => {
