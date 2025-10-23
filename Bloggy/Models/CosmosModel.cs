@@ -1,3 +1,6 @@
+using System.Security.Claims;
+using Bloggy.Services;
+
 namespace Bloggy.Models
 {
   public abstract class CosmosModel(string id)
@@ -10,8 +13,18 @@ namespace Bloggy.Models
     }
   }
 
-  public abstract class AuthorizedCosmosModel(string id, string ownerId) : CosmosModel(id)
+  public abstract class AuthorizedCosmosModel : CosmosModel
   {
-    public virtual string ownerId { get; set; } = ownerId;
+    protected AuthorizedCosmosModel(string id, string ownerId) : base(id)
+    {
+      this.ownerId = ownerId;
+    }
+
+    protected AuthorizedCosmosModel(string id, ClaimsPrincipal user) : base(id)
+    {
+      this.ownerId = AuthService.GetUserId(user);
+    }
+
+    public virtual string ownerId { get; set; }
   }
 }

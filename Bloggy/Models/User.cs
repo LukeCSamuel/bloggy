@@ -14,4 +14,3 @@ namespace Bloggy.Models
     public User(string id) : base(id, id) { }
   }
 }
-

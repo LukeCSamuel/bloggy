@@ -16,3 +16,7 @@ export async function uploadPfpAsync (blob: Blob) {
   await api.postJsonAsync<User>(`api/user/${auth.user.id}/pfp`, blob, 'image/bitmap');
   await getCurrentUserAsync();
 }
+
+export async function getUserAsync (userId: string) {
+  await api.getJsonAsync<User>(`api/user/${userId}`);
+}
