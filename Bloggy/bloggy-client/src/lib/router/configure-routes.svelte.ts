@@ -105,6 +105,7 @@ export class Route<TParameters extends object> {
     private _name: string,
     private _subMatcher: RouteMatcher<TParameters>,
     private _view: Component,
+    private _aliases?: RouteMatcher<TParameters>[],
     private _nestedRoutes?: Route<Partial<TParameters>>[],
   ) {
     if (_name.includes('/')) {
@@ -128,8 +129,12 @@ export class Route<TParameters extends object> {
 
     if (matchResult) {
       const query = Object.fromEntries(url.searchParams.entries());
+      // Rebuild the href using the canonical
+      const canonicalPath = this.tryBuildHref(matchResult.name, matchResult.params, query, url.hash) || href;
+      const canonicalHref = new URL(canonicalPath, document.baseURI).href;
+
       return {
-        href,
+        href: canonicalHref,
         query,
         ...matchResult,
       };
@@ -146,7 +151,8 @@ export class Route<TParameters extends object> {
 
     try {
       const path = this.intermediateBuildHref(subRouteNames, parameters);
-      const href = `${path}${query ? '?' + new URLSearchParams(query).toString() : ''}${fragment && '#' + fragment}`;
+      const searchParams = new URLSearchParams(query);
+      const href = `${path}${searchParams.size > 0 ? '?' + searchParams.toString() : ''}${fragment && '#' + fragment}`;
       return href;
     } catch (error_) {
       const error = error_ instanceof Error ? new Error(`Failed to build href for route "${name}": ${error_.message}`) : error_;
@@ -169,8 +175,22 @@ export class Route<TParameters extends object> {
     }
   }
 
+  private getMatchWithAliases (remaining: string): RouteSubMatch<TParameters> {
+    let matchResult = this._subMatcher.match(remaining);
+    // Try matching aliases if the canonical route failed
+    if (!matchResult.isMatch) {
+      for (const alias of this._aliases ?? []) {
+        matchResult = alias.match(remaining);
+        if (matchResult.isMatch) {
+          return matchResult;
+        }
+      }
+    }
+    return matchResult;
+  }
+
   private intermediateMatch (remaining: string): IntermediateMatchedRoute<TParameters> | false {
-    const matchResult = this._subMatcher.match(remaining);
+    const matchResult = this.getMatchWithAliases(remaining);
 
     console.log(` > matching sub-route:"${this.name}" on path:"${remaining}"`, matchResult);
 
@@ -276,6 +296,10 @@ export interface RouteDefinition {
   name: string;
   match: RouteMatcher<object> | RegExp | string;
   view: Component;
+  /**
+   * An alias is an alternative way to match a route that will be resolved to the canonical `match`
+   */
+  aliases?: (RouteMatcher<object> | RegExp | string)[];
   nested?: RouteDefinition[];
 }
 
@@ -326,6 +350,14 @@ function createMatcherFromString (raw: string): RouteMatcher<object> {
   };
 }
 
+function getMatcher (match: RouteDefinition['match']): RouteMatcher<object> {
+  return match instanceof RegExp
+    ? createMatcherFromRegExp(match)
+    : (typeof match === 'string'
+        ? createMatcherFromString(match)
+        : match);
+}
+
 /**
  * Defines routes to be used by the app
  * @param routeDefinitions Route configuration
@@ -334,15 +366,13 @@ export function defineRoutes<T extends RouteDefinition[]> (routeDefinitions: T):
   const routes = [];
   for (const route of routeDefinitions) {
     const nested = route.nested ? defineRoutes(route.nested) : undefined;
-    const match = route.match instanceof RegExp
-      ? createMatcherFromRegExp(route.match)
-      : (typeof route.match === 'string'
-          ? createMatcherFromString(route.match)
-          : route.match);
+    const match = getMatcher(route.match);
+    const aliases = route.aliases?.map(alias => getMatcher(alias)) ?? [];
     routes.push(new Route(
       route.name,
       match,
       route.view,
+      aliases,
       nested,
     ));
   }
@@ -525,8 +555,8 @@ export class AppRouter implements RouterContext<object> {
    * @param href The href to create a ResolvedRoute for
    */
   private createResolvedRoute (href: string): ResolvedRoute {
-    const [prefragment, fragment] = href.split('#');
     const url = new URL(href, document.baseURI);
+    const [prefragment, fragment] = url.href.split('#');
 
     const isActive = this._state.route.href.startsWith(prefragment);
     const isFragment = isActive && fragment !== undefined;

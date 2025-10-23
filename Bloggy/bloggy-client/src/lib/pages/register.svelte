@@ -1,6 +1,7 @@
 <script lang="ts">
   import ProfilePicture from "../components/profile-picture.svelte";
   import { uploadPfpAsync } from "../entities/user";
+    import Logo from '../icons/logo.svelte';
   import { getRouter } from "../router/configure-routes.svelte";
   import Link from "../router/link.svelte";
   import { auth, registerAsync } from "../utils/auth.svelte";
@@ -35,7 +36,8 @@
 
 <div>
   <div class="p-4">
-    <h1 class="font-slab text-xl font-bold mb-2">Welcome to Bloggy!</h1>
+    <Logo class="h-12" />
+    <h1 class="font-slab text-xl font-bold mt-4 mb-2">Welcome to Bloggy!</h1>
     <p>
       We're excited to have you. Wondering what you're doing here? Check out
       <Link route={{ name: "support/about" }}>"What is Bloggy?"</Link>

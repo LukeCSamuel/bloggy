@@ -2,6 +2,7 @@
   import RouterOutlet from "../router/router-outlet.svelte";
   import Logo from "../icons/logo.svelte";
   import Link from "../router/link.svelte";
+  import Footer from "../components/footer.svelte";
 </script>
 
 <header
@@ -14,16 +15,4 @@
 
 <RouterOutlet />
 
-<footer class="px-4 py-10 bg-gray-200">
-  <!-- TODO: add github link with logo -->
-  <div class="flex max-w-max mx-auto gap-8">
-    <div class="flex flex-col">
-      <Link route={{ name: "support/terms" }}>Terms of Service</Link>
-      <Link route={{ name: "support/privacy" }}>Privacy Policy</Link>
-      <Link route={{ name: "support/community-guidelines" }}>
-        Community Guidelines
-      </Link>
-    </div>
-    <div class="max-w-max mx-auto">© 2025 Bloggy, a Consummated Soap™ Company</div>
-  </div>
-</footer>
+<Footer />

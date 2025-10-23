@@ -36,8 +36,8 @@ namespace Bloggy.Controllers
         {
           Raw = Request.Body,
           Name = $"pfp-{Guid.NewGuid()}",
-          Width = 150,
-          Height = 150
+          Width = 300,
+          Height = 300
         });
 
         var user = await cosmos.GetByIdAsync<User>(id);

@@ -9,6 +9,8 @@ import CommunityGuidelines from './lib/support/community-guidelines.svelte';
 import Terms from './lib/support/terms.svelte';
 import Register from './lib/pages/register.svelte';
 import About from './lib/support/about.svelte';
+import Trending from './lib/pages/trending.svelte';
+import Score from './lib/pages/score.svelte';
 
 export const router = new AppRouter([
   {
@@ -44,19 +46,32 @@ export const router = new AppRouter([
     ],
   },
   {
+    name: 'register',
+    match: '/bloggy/register',
+    view: Register,
+  },
+  {
     name: 'bloggy',
     match: '/bloggy',
     view: Layout,
     nested: [
       {
         name: 'home',
-        match: match`${param('_').match(/\/?/)}`,
+        match: '/home',
         view: Home,
+        aliases: [
+          '',
+        ],
       },
       {
-        name: 'register',
-        match: '/register',
-        view: Register,
+        name: 'trending',
+        match: '/trending',
+        view: Trending,
+      },
+      {
+        name: 'score',
+        match: '/score',
+        view: Score,
       },
     ],
   },

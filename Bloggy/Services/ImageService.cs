@@ -24,6 +24,8 @@ namespace Bloggy.Services
         Mode = ResizeMode.Max,
         Size = new Size(uploadOptions.Width, uploadOptions.Height)
       }));
+      image.Metadata.ExifProfile = null;
+      image.Metadata.XmpProfile = null;
 
       // Encode to webp into a memory stream
       var memOut = new MemoryStream();
