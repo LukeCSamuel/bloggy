@@ -18,12 +18,19 @@ namespace Bloggy.Controllers
       var dto = new List<PostGetDto>();
       foreach (var post in posts)
       {
-        // Get comments that go with the post
+        // Get comments & authors that go with the post
         var comments = await cosmos.GetAllAsync<Comment>(comment => comment.postId == post.id);
+        var authorIds = new HashSet<string>([post.ownerId]);
+        foreach (var comment in comments)
+        {
+          authorIds.Add(comment.ownerId);
+        }
+        var authors = await cosmos.GetAllAsync<User>(user => authorIds.Contains(user.id));
         dto.Add(new()
         {
           post = post,
           comments = comments,
+          authors = authors,
         });
       }
 
@@ -39,10 +46,17 @@ namespace Bloggy.Controllers
       {
         // Get comments that go with the post
         var comments = await cosmos.GetAllAsync<Comment>(comment => comment.postId == post.id);
+        var authorIds = new HashSet<string>([post.ownerId]);
+        foreach (var comment in comments)
+        {
+          authorIds.Add(comment.ownerId);
+        }
+        var authors = await cosmos.GetAllAsync<User>(user => authorIds.Contains(user.id));
         dto.Add(new()
         {
           post = post,
           comments = comments,
+          authors = authors,
         });
       }
 
@@ -57,10 +71,17 @@ namespace Bloggy.Controllers
       {
         // Get comments that go with post
         var comments = await cosmos.GetAllAsync<Comment>(comment => comment.postId == id);
+        var authorIds = new HashSet<string>([post.ownerId]);
+        foreach (var comment in comments)
+        {
+          authorIds.Add(comment.ownerId);
+        }
+        var authors = await cosmos.GetAllAsync<User>(user => authorIds.Contains(user.id));
         return Ok(new PostGetDto()
         {
           post = post,
           comments = comments,
+          authors = authors,
         });
       }
       else
@@ -84,10 +105,13 @@ namespace Bloggy.Controllers
 
       await cosmos.UpdateAsync(post, User);
 
+      var author = await cosmos.GetByIdAsync<User>(AuthService.GetUserId(User));
+
       return Ok(new PostGetDto()
       {
         post = post,
         comments = [],
+        authors = [author!],
       });
     }
 

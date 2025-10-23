@@ -12,6 +12,7 @@ import About from './lib/support/about.svelte';
 import Trending from './lib/pages/trending.svelte';
 import Score from './lib/pages/score.svelte';
 import Profile from './lib/pages/profile.svelte';
+import Admin from './lib/pages/admin.svelte';
 
 export const router = new AppRouter([
   {
@@ -50,6 +51,11 @@ export const router = new AppRouter([
     name: 'register',
     match: '/bloggy/register',
     view: Register,
+  },
+  {
+    name: 'admin',
+    match: '/bloggy/__admin__',
+    view: Admin,
   },
   {
     name: 'bloggy',

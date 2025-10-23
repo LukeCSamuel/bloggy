@@ -1,5 +1,6 @@
 import { api } from '../utils/api';
 import type { EntityBase } from './entity-base';
+import type { User } from './user';
 
 export interface Post extends EntityBase {
   title: string;
@@ -18,6 +19,7 @@ export interface Comment extends EntityBase {
 export interface PostDto {
   post: Post;
   comments: Comment[];
+  authors: User[];
 }
 
 export interface PostCreateDto {

@@ -15,5 +15,6 @@ namespace Bloggy.Models.Dto
   {
     public required Post post { get; set; }
     public required IEnumerable<Comment> comments { get; set; }
+    public required IEnumerable<User> authors { get; set; }
   }
 }
