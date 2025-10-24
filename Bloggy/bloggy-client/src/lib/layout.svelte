@@ -10,8 +10,10 @@
   import Link from "./router/link.svelte";
   import RouterOutlet from "./router/router-outlet.svelte";
   import { auth } from "./utils/auth.svelte";
+  import Plus from "./icons/plus.svelte";
 
   const router = getRouter();
+  let navContainer: HTMLElement;
 
   if (!auth.isAuthenticated && router.route.name !== "register") {
     setTimeout(() => {
@@ -41,9 +43,26 @@
         return "border-rose-800";
     }
   });
+  let showNewPost = $derived.by(() => {
+    switch (router.route.name) {
+      case "bloggy/home":
+      case "bloggy/trending":
+        return true;
+      default:
+        return false;
+    }
+  });
   let miscTabSnippet = $derived(
     (router.meta.tabName as Snippet) ?? defaultMiscTab,
   );
+
+  let lastRoute = $state(router.route.name);
+  $effect(() => {
+    if (router.route.name != lastRoute) {
+      navContainer.scrollLeft = navContainer.scrollWidth;
+      lastRoute = router.route.name;
+    }
+  });
 </script>
 
 {#snippet defaultMiscTab()}
@@ -52,21 +71,21 @@
 
 <div class="flex flex-col min-h-dvh">
   <header
-    class="sticky top-0 backdrop-blur-md backdrop-grayscale-50 drop-shadow-md"
+    class="sticky top-0 backdrop-blur-md backdrop-grayscale-50 drop-shadow-md z-50"
   >
     <div class="max-w-[640px] m-auto">
       <div class="flex items-center justify-between gap-12 px-4 py-2">
         <Link route={{ name: "bloggy/home" }} class="h-8">
           <Logo format="short" class="w-auto h-full fill-gray-900" />
         </Link>
-        <Search />
         {#if auth.user}
-          <div
-            class="h-8 w-8 rounded-full overflow-clip border-2 border-solid border-gray-100 drop-shadow-sm"
-          >
-            <!-- TODO: link to user page -->
-            <img src={auth.user.pfpUrl} alt="your pfp" />
-          </div>
+          <Link class="clear" route={{ name: "bloggy/profile", params: { userId: auth.user.id }}}>
+            <div
+              class="h-8 w-8 rounded-full overflow-clip border-2 border-solid border-gray-100 drop-shadow-sm"
+            >
+              <img src={auth.user.pfpUrl} alt="your pfp" />
+            </div>
+          </Link>
         {/if}
       </div>
     </div>
@@ -78,9 +97,21 @@
     </div>
   </div>
 
+  {#if showNewPost}
+    <div class="sticky bottom-10 max-w-[640px] w-dvw m-auto">
+      <Link
+        class="c-btn clear flex my-3 ml-2 px-3 w-max h-10 bg-yellow-300"
+        route={{ name: "bloggy/create-post" }}
+      >
+        <Plus /> New Post
+      </Link>
+    </div>
+  {/if}
+
   <div class="sticky bottom-0 bg-gray-300">
     <div
-      class="max-w-[640px] w-dvw m-auto flex flex-col-reverse overflow-x-scroll"
+      bind:this={navContainer}
+      class="max-w-[640px] w-dvw m-auto overflow-x-scroll"
     >
       <!-- TODO top border of nave should be color of active route -->
       <nav

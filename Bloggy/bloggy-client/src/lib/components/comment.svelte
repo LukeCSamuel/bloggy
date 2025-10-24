@@ -4,6 +4,7 @@
   import type { User } from "../entities/user";
   import Author from "./author.svelte";
   import { auth } from "../utils/auth.svelte";
+    import Edit from './edit.svelte';
 
   type Props =
     | {
@@ -51,18 +52,7 @@
       <SvelteMarkdown source={comment.text} />
     {:else if props.postId}
       <!-- Allow comment creation -->
-      <div class="relative">
-        {#if !canPostComment}
-          <div class="absolute top-0 left-0 text-gray-500 pointer-events-none">
-            Add a comment...
-          </div>
-        {/if}
-        <div
-          class="c-edit w-full mb-2"
-          contenteditable="true"
-          bind:textContent={newText}
-        ></div>
-      </div>
+      <Edit class="mb-2" placeholder="Add a comment..." bind:value={newText} />
       {#if canPostComment}
         <div class="flex justify-end">
           <button

@@ -5,7 +5,7 @@
   import Author from "./author.svelte";
   import Comment from "./comment.svelte";
   import type { EntityBase } from "../entities/entity-base";
-  import { auth } from "../utils/auth.svelte";
+    import Carousel from './carousel.svelte';
 
   interface Props {
     post: PostDto;
@@ -33,17 +33,15 @@
 </script>
 
 <div class="p-4">
-  <div class="flex justify-between">
+  <div class="flex justify-between mb-4">
     <h3 class="font-slab text-xl">{post.title}</h3>
     <Author author={postAuthor} date={post.created} format="full" />
   </div>
   <!-- TODO: carousel -->
   <div class="-mx-4">
-    {#each post.images as image}
-      <img alt="unknown" src={image} />
-    {/each}
+    <Carousel images={post.images} />
   </div>
-  <div class="py-4 border-b-[1px] border-solid border-gray-300">
+  <div class="mt-4 pb-4 border-b-[1px] border-solid border-gray-300">
     <SvelteMarkdown source={post.text} />
   </div>
 

@@ -15,6 +15,7 @@ namespace Bloggy.Controllers
     public async Task<IActionResult> GetAll()
     {
       var posts = await cosmos.GetAllAsync<Post>(post => post.isTrending == false);
+      posts = posts.OrderByDescending(post => post.created);
       var dto = new List<PostGetDto>();
       foreach (var post in posts)
       {
@@ -41,6 +42,7 @@ namespace Bloggy.Controllers
     public async Task<IActionResult> GetTrending()
     {
       var posts = await cosmos.GetAllAsync<Post>(post => post.isTrending == true);
+      posts = posts.OrderByDescending(post => post.created);
       var dto = new List<PostGetDto>();
       foreach (var post in posts)
       {

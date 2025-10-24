@@ -49,10 +49,6 @@
     border-left: --spacing(1) solid var(--color-rose-300);
     padding-left: --spacing(1);
   }
-
-  textarea:not(.clear) {
-
-  }
 }
 
 @layer components {

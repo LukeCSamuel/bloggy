@@ -13,6 +13,7 @@ import Trending from './lib/pages/trending.svelte';
 import Score from './lib/pages/score.svelte';
 import Profile from './lib/pages/profile.svelte';
 import Admin from './lib/pages/admin.svelte';
+import CreatePost from './lib/pages/create-post.svelte';
 
 export const router = new AppRouter([
   {
@@ -84,6 +85,11 @@ export const router = new AppRouter([
         name: 'profile',
         match: match`/profile/${param('userId').matchSegment()}`,
         view: Profile,
+      },
+      {
+        name: 'create-post',
+        match: '/new-post',
+        view: CreatePost,
       },
     ],
   },
