@@ -85,7 +85,7 @@
 
   <div class="px-4 mt-8 flex justify-center items-center">
     <button
-      class="c-btn w-24 h-10 bg-yellow-300 disabled:bg-gray-200 text-black disabled:text-gray-800"
+      class="c-btn w-24 h-10 bg-yellow-300 text-black"
       onclick={signUp}
       disabled={!isValid}
     >

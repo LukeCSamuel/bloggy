@@ -1,8 +1,11 @@
 <script lang="ts">
-  import type { Post, Comment, PostDto } from "../entities/post";
-  import { getUserAsync, type User } from "../entities/user";
+  import { getPostAsync, type PostDto } from "../entities/post";
+  import { type User } from "../entities/user";
   import SvelteMarkdown from "@humanspeak/svelte-markdown";
-  import Link from "../router/link.svelte";
+  import Author from "./author.svelte";
+  import Comment from "./comment.svelte";
+  import type { EntityBase } from "../entities/entity-base";
+  import { auth } from "../utils/auth.svelte";
 
   interface Props {
     post: PostDto;
@@ -14,33 +17,40 @@
   let comments = $derived(dto.comments);
   let authors = $derived(dto.authors);
   let postAuthor = $derived(getAuthor(post));
+  let refreshes = $state(0);
 
-  function getAuthor({ ownerId }: Post | Comment): User {
+  function getAuthor({ ownerId }: EntityBase): User {
     return authors.find((author) => author.id === ownerId)!;
+  }
+  
+  async function refresh() {
+    const result = await getPostAsync(post.id);
+    if (result) {
+      dto = result;
+      refreshes++;
+    }
   }
 </script>
 
-<div>
-  <h3>{post.title}</h3>
-  <img src={postAuthor.pfpUrl} alt="{postAuthor.name}, author" />
-  <div>
-    by <Link
-      route={{ name: "bloggy/profile", params: { userId: postAuthor.ownerId } }}
-    >
-      {postAuthor.name}
-    </Link> at {new Date(post.created)}
+<div class="p-4">
+  <div class="flex justify-between">
+    <h3 class="font-slab text-xl">{post.title}</h3>
+    <Author author={postAuthor} date={post.created} format="full" />
   </div>
-  {#each post.images as image}
-    <img alt="unknown" src={image} />
-  {/each}
-  <SvelteMarkdown source={post.text} />
-
-  <div>
-    {#each comments as comment}
-      {@const commentAuthor = getAuthor(comment)}
-      <img alt={commentAuthor.name} src={commentAuthor.pfpUrl} />
-      <div>{commentAuthor.name} at {new Date(comment.created)}</div>
-      <div>{comment.text}</div>
+  <!-- TODO: carousel -->
+  <div class="-mx-4">
+    {#each post.images as image}
+      <img alt="unknown" src={image} />
     {/each}
   </div>
+  <div class="py-4 border-b-[1px] border-solid border-gray-300">
+    <SvelteMarkdown source={post.text} />
+  </div>
+
+  {#each comments as comment}
+    <Comment {comment} author={getAuthor(comment)} />
+  {/each}
+  {#key refreshes}
+    <Comment postId={post.id} {refresh} />
+  {/key}
 </div>

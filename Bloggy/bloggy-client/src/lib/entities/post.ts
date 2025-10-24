@@ -31,22 +31,26 @@ export interface CommentCreateDto {
   text: string;
 }
 
-export async function getHomePostsAsync () {
-  return await api.getJsonAsync<PostDto[]>('api/post');
+export function getHomePostsAsync () {
+  return api.getJsonAsync<PostDto[]>('api/post');
 }
 
-export async function getTrendingPostsAsync () {
-  return await api.getJsonAsync<PostDto[]>('api/post/trending');
+export function getTrendingPostsAsync () {
+  return api.getJsonAsync<PostDto[]>('api/post/trending');
 }
 
-export async function createPostAsync (dto: PostCreateDto) {
-  return await api.postJsonAsync<PostDto>('api/post', JSON.stringify(dto));
+export function getPostAsync (postId: string) {
+  return api.getJsonAsync<PostDto>(`api/post/${postId}`);
 }
 
-export async function addCommentAsync (postId: string, dto: CommentCreateDto) {
-  return await api.postJsonAsync<Comment>(`api/post/${postId}/add-comment`, JSON.stringify(dto));
+export function createPostAsync (dto: PostCreateDto) {
+  return api.postJsonAsync<PostDto>('api/post', JSON.stringify(dto));
 }
 
-export async function uploadImageAsync (postId: string, blob: Blob) {
-  return await api.postJsonAsync<Post>(`api/post/${postId}/add-image`, blob, 'image/bitmap');
+export function addCommentAsync (postId: string, dto: CommentCreateDto) {
+  return api.postJsonAsync<Comment>(`api/post/${postId}/add-comment`, JSON.stringify(dto));
+}
+
+export function uploadImageAsync (postId: string, blob: Blob) {
+  return api.postJsonAsync<Post>(`api/post/${postId}/add-image`, blob, 'image/bitmap');
 }

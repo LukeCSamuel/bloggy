@@ -21,33 +21,37 @@
 }
 
 @layer base {
-  a {
+  a:not(.clear) {
     color: var(--color-blue-700);
   }
 
   @media (hover: hover) {
-    a:hover {
+    a:not(.clear):hover {
       text-decoration: underline;
     }
   }
 
-  strong {
+  strong:not(.clear) {
     font-weight: var(--font-weight-semibold);
   }
 
-  em {
+  em:not(.clear) {
     color: color-mix(in srgb, currentColor, transparent 12%);
   }
 
-  hr {
+  hr:not(.clear) {
     border-color: color-mix(in srgb, currentColor, transparent 80%);
   }
 
-  input[type=text] {
+  input[type=text]:not(.clear) {
     border: --spacing(0.25) solid var(--color-gray-100);
-    border-bottom: --spacing(0.5) solid var(--color-blue-300);
-    border-left: --spacing(1) solid var(--color-red-300);
+    border-bottom: --spacing(0.5) solid var(--color-sky-300);
+    border-left: --spacing(1) solid var(--color-rose-300);
     padding-left: --spacing(1);
+  }
+
+  textarea:not(.clear) {
+
   }
 }
 
@@ -69,6 +73,7 @@
   }
 
   .c-btn:disabled {
+    filter: grayscale(1) contrast(0.7);
     clip-path: rect(auto 100% calc(100% - --spacing(1.25)) auto);
   }
 

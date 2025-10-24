@@ -32,13 +32,13 @@
   let navBorderColor = $derived.by(() => {
     switch (router.route.name) {
       case "bloggy/home":
-        return "border-blue-800";
+        return "border-emerald-800";
       case "bloggy/trending":
-        return "border-purple-800";
+        return "border-indigo-800";
       case "bloggy/score":
-        return "border-green-800";
+        return "border-fuchsia-800";
       default:
-        return "border-red-800";
+        return "border-rose-800";
     }
   });
   let miscTabSnippet = $derived(
@@ -80,42 +80,42 @@
 
   <div class="sticky bottom-0 bg-gray-300">
     <div
-      class="max-w-[640px] w-dvw m-auto flex flex-col-reverse overflow-x-scroll border-t-2 border-solid {navBorderColor}"
+      class="max-w-[640px] w-dvw m-auto flex flex-col-reverse overflow-x-scroll"
     >
       <!-- TODO top border of nave should be color of active route -->
       <nav
-        class="flex flex-row-reverse justify-end px-2 sm:px-0 pb-2"
+        class="flex flex-row-reverse justify-end px-2 sm:px-0 pb-2 border-t-2 border-solid {navBorderColor}"
       >
         <!-- Navigation tabs -->
         <!-- Tabs are in reverse order so the first tab renders above subsequent tabs -->
 
         {#if needsMiscTab}
           <div
-            class="c-tab border-l-6 border-solid border-red-800 py-1 pl-2 pr-3"
+            class="c-tab border-l-6 border-solid border-rose-800 py-1 pl-2 pr-3"
           >
-            <Link class="no-underline!" route={router.route}>
+            <Link class="clear" route={router.route}>
               {@render miscTabSnippet()}
             </Link>
           </div>
         {/if}
         <div
-          class="c-tab border-l-6 border-solid border-green-800 py-1 pl-2 pr-3"
+          class="c-tab border-l-6 border-solid border-fuchsia-800 py-1 pl-2 pr-3"
         >
-          <Link class="no-underline!" route={{ name: "bloggy/score" }}>
+          <Link class="clear" route={{ name: "bloggy/score" }}>
             <Trophy /> Score
           </Link>
         </div>
         <div
-          class="c-tab border-l-6 border-solid border-purple-800 py-1 pl-2 pr-3"
+          class="c-tab border-l-6 border-solid border-indigo-800 py-1 pl-2 pr-3"
         >
-          <Link class="no-underline!" route={{ name: "bloggy/trending" }}>
+          <Link class="clear" route={{ name: "bloggy/trending" }}>
             <Firework /> Trending
           </Link>
         </div>
         <div
-          class="c-tab border-l-6 border-solid border-blue-800 py-1 pl-2 pr-3"
+          class="c-tab border-l-6 border-solid border-emerald-800 py-1 pl-2 pr-3"
         >
-          <Link class="no-underline!" route={{ name: "bloggy/home" }}>
+          <Link class="clear" route={{ name: "bloggy/home" }}>
             <Notebook /> Homeroom
           </Link>
         </div>
@@ -143,5 +143,10 @@
 
   .c-tab :global(a.active) {
     @apply text-black;
+  }
+
+  .c-tab:has(:global(a.active))::after {
+    content: "";
+    @apply absolute left-0 right-0 -top-0.5 h-0.5 bg-white;
   }
 </style>

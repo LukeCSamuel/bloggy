@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@humanspeak/svelte-markdown": "^0.8.13",
-    "add-to-calendar-button": "^2.12.12"
+    "add-to-calendar-button": "^2.12.12",
+    "date-fns": "^4.1.0"
   }
 }
