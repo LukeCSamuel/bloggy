@@ -79,7 +79,10 @@
           <Logo format="short" class="w-auto h-full fill-gray-900" />
         </Link>
         {#if auth.user}
-          <Link class="clear" route={{ name: "bloggy/profile", params: { userId: auth.user.id }}}>
+          <Link
+            class="clear"
+            route={{ name: "bloggy/profile", params: { userId: auth.user.id } }}
+          >
             <div
               class="h-8 w-8 rounded-full overflow-clip border-2 border-solid border-gray-100 drop-shadow-sm"
             >
@@ -98,6 +101,9 @@
   </div>
 
   {#if showNewPost}
+    <div class="mt-0 -mb-16 bg-gray-300">
+      <div class="h-16 max-w-[640px] w-dvw m-auto bg-white"></div>
+    </div>
     <div class="sticky bottom-10 max-w-[640px] w-dvw m-auto">
       <Link
         class="c-btn clear flex my-3 ml-2 px-3 w-max h-10 bg-yellow-300"

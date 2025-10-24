@@ -121,11 +121,7 @@ export class Route<TParameters extends object> {
     const url = new URL(href);
     const remaining = url.pathname;
 
-    console.log(`Matching route:"${this.name}" on path:"${remaining}"`);
-
     const matchResult = this.intermediateMatch(remaining);
-
-    console.log(` > result:`, matchResult);
 
     if (matchResult) {
       const query = Object.fromEntries(url.searchParams.entries());
@@ -191,8 +187,6 @@ export class Route<TParameters extends object> {
 
   private intermediateMatch (remaining: string): IntermediateMatchedRoute<TParameters> | false {
     const matchResult = this.getMatchWithAliases(remaining);
-
-    console.log(` > matching sub-route:"${this.name}" on path:"${remaining}"`, matchResult);
 
     if (!matchResult.isMatch) {
       return false;

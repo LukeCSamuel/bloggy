@@ -21,12 +21,13 @@
   let imageFiles = $state(new DataTransfer().files);
   let images = $state([]) as ImageData[];
 
+  let isProcessing = $state(false);
   let posting = $state(false);
   let canPost = $derived(
     !posting &&
       !!title?.trim() &&
       !!text?.trim() &&
-      images.length == imageFiles.length,
+      !isProcessing
   );
 
   // Automatically update blobs and data urls from files
@@ -34,6 +35,7 @@
 
   async function processImageFiles(files: FileList) {
     await Promise.resolve();
+    isProcessing = true;
     const imageList = [...images];
     for (const file of files) {
       const arrayBuffer = await file.arrayBuffer();
@@ -55,6 +57,7 @@
       });
     }
     images = imageList;
+    isProcessing = false;
   }
 
   function removeImage(name: string) {
