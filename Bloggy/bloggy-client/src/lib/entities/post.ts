@@ -39,6 +39,10 @@ export function getTrendingPostsAsync () {
   return api.getJsonAsync<PostDto[]>('api/post/trending');
 }
 
+export function getPostsForUserAsync (userId: string) {
+  return api.getJsonAsync<PostDto[]>(`api/user/${userId}/posts`);
+}
+
 export function getPostAsync (postId: string) {
   return api.getJsonAsync<PostDto>(`api/post/${postId}`);
 }

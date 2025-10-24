@@ -5,7 +5,7 @@
   import Author from "./author.svelte";
   import Comment from "./comment.svelte";
   import type { EntityBase } from "../entities/entity-base";
-    import Carousel from './carousel.svelte';
+  import Carousel from "./carousel.svelte";
 
   interface Props {
     post: PostDto;
@@ -22,7 +22,7 @@
   function getAuthor({ ownerId }: EntityBase): User {
     return authors.find((author) => author.id === ownerId)!;
   }
-  
+
   async function refresh() {
     const result = await getPostAsync(post.id);
     if (result) {
@@ -32,7 +32,7 @@
   }
 </script>
 
-<div class="p-4">
+<div class="p-4 group">
   <div class="flex justify-between mb-4">
     <h3 class="font-slab text-xl">{post.title}</h3>
     <Author author={postAuthor} date={post.created} format="full" />
@@ -51,4 +51,7 @@
   {#key refreshes}
     <Comment postId={post.id} {refresh} />
   {/key}
+  <div
+    class="group-last:hidden -mx-4 pb-6 mb-6 border-b-[1px] border-solid border-slate-900"
+  ></div>
 </div>

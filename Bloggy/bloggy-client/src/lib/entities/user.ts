@@ -6,7 +6,11 @@ export interface User extends EntityBase {
   name: string;
   pfpUrl: string;
   created: string;
+  isNpc?: boolean;
+  about?: string;
 }
+
+export type UserUpdateDto = Partial<Pick<User, 'name' | 'about' | 'pfpUrl'>>;
 
 export async function uploadPfpAsync (blob: Blob) {
   if (!auth.user) {
@@ -17,6 +21,10 @@ export async function uploadPfpAsync (blob: Blob) {
   await getCurrentUserAsync();
 }
 
-export async function getUserAsync (userId: string) {
-  await api.getJsonAsync<User>(`api/user/${userId}`);
+export function getUserAsync (userId: string) {
+  return api.getJsonAsync<User>(`api/user/${userId}`);
+}
+
+export function updateUserAsync (userId: string, dto: UserUpdateDto) {
+  return api.postJsonAsync<User>(`api/user/${userId}`, JSON.stringify(dto));
 }

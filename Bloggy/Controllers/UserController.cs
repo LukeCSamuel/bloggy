@@ -1,4 +1,5 @@
 using Bloggy.Models;
+using Bloggy.Models.Dto;
 using Bloggy.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,8 +26,27 @@ namespace Bloggy.Controllers
     }
 
     [Authorize]
+    [HttpPost("{id:guid}")]
+    public async Task<IActionResult> updateUser(string id, [FromBody] UserUpdateDto dto)
+    {
+      var user = await cosmos.GetByIdAsync<User>(id);
+      if (user is null)
+      {
+        return NotFound("User does not exist");
+      }
+
+      user.about = dto.about ?? user.about;
+      user.name = dto.name ?? user.name;
+      user.pfpUrl = dto.pfpUrl ?? user.pfpUrl;
+      await cosmos.UpdateAsync(user, User);
+
+      return Ok(user);
+    }
+
+
+    [Authorize]
     [HttpPost("{id:guid}/pfp")]
-    public async Task<IActionResult> SetPfp (string id)
+    public async Task<IActionResult> SetPfp(string id)
     {
       await cosmos.AuthorizeAsync<User>(id, User);
 
@@ -61,7 +81,34 @@ namespace Bloggy.Controllers
       {
         return BadRequest("No image was provided");
       }
-
     }
+
+    [HttpGet("{id:guid}/posts")]
+    public async Task<IActionResult> getPosts(string id)
+    {
+      var authorIds = new HashSet<string>([id]);
+      var posts = await cosmos.GetAllAsync<Post>(post => post.ownerId == id);
+      posts = posts.OrderByDescending(post => post.created);
+      var dto = new List<PostGetDto>();
+      foreach (var post in posts)
+      {
+        // Get comments that go with the post
+        var comments = await cosmos.GetAllAsync<Comment>(comment => comment.postId == post.id);
+        foreach (var comment in comments)
+        {
+          authorIds.Add(comment.ownerId);
+        }
+        var authors = await cosmos.GetAllAsync<User>(user => authorIds.Contains(user.id));
+        dto.Add(new()
+        {
+          post = post,
+          comments = comments,
+          authors = authors,
+        });
+      }
+
+      return Ok(dto);
+    }
+    
   }
 }
