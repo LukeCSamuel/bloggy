@@ -14,6 +14,7 @@ import Score from './lib/pages/score.svelte';
 import Profile from './lib/pages/profile.svelte';
 import Admin from './lib/pages/admin.svelte';
 import CreatePost from './lib/pages/create-post.svelte';
+import Challenge from './lib/pages/challenge.svelte';
 
 export const router = new AppRouter([
   {
@@ -90,6 +91,11 @@ export const router = new AppRouter([
         name: 'create-post',
         match: '/new-post',
         view: CreatePost,
+      },
+      {
+        name: 'challenge',
+        match: match`/challenge/${param('challengeId').matchSegment()}`,
+        view: Challenge,
       },
     ],
   },

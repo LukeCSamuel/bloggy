@@ -22,8 +22,6 @@
 
   let postsPromise = $derived(getPostsForUserAsync(router.route.params.userId));
 
-  let newAbout = $state("");
-
   router.setMeta({
     tabName,
   });
