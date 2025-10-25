@@ -1,0 +1,12 @@
+{
+  "type": "Event",
+  "id": "register",
+  "name": "Register a Bloggy Account",
+  "key": "",
+  "maxPoints": 100,
+  "afterTime": null,
+  "afterEventId": null,
+  "trending": null,
+  "entities": [],
+  "isFinale": false
+}

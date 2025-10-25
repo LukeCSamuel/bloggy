@@ -17,7 +17,11 @@ class UserState {
 export const auth = new UserState();
 
 export async function getCurrentUserAsync () {
-  return user = await api.getJsonAsync<User>('api/auth/current-user');
+  try {
+    return user = await api.getJsonAsync<User>('api/auth/current-user');
+  } catch {
+    // user couldn't be deserialized
+  }
 }
 
 export async function registerAsync (body: Pick<User, 'name'>): Promise<boolean> {

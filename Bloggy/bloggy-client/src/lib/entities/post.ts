@@ -1,4 +1,5 @@
 import { api } from '../utils/api';
+import type { FailedCompletion, SuccessfulCompletion } from './completion';
 import type { EntityBase } from './entity-base';
 import type { User } from './user';
 
@@ -52,7 +53,7 @@ export function createPostAsync (dto: PostCreateDto) {
 }
 
 export function addCommentAsync (postId: string, dto: CommentCreateDto) {
-  return api.postJsonAsync<Comment>(`api/post/${postId}/add-comment`, JSON.stringify(dto));
+  return api.postJsonAsync<Comment | SuccessfulCompletion | FailedCompletion>(`api/post/${postId}/add-comment`, JSON.stringify(dto));
 }
 
 export function uploadImageAsync (postId: string, blob: Blob) {

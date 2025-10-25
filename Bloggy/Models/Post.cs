@@ -2,7 +2,7 @@ using System.Security.Claims;
 
 namespace Bloggy.Models
 {
-  internal class Post : AuthorizedCosmosModel
+  public class Post : AuthorizedCosmosModel
   {
     public string? title { get; set; }
     public List<string>? images { get; set; }

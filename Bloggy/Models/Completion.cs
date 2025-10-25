@@ -1,6 +1,8 @@
+using System.Security.Claims;
+
 namespace Bloggy.Models
 {
-  internal class Completion : AuthorizedCosmosModel
+  public class Completion : AuthorizedCosmosModel
   {
     public string? eventId { get; set; }
     public string? challengeId { get; set; }
@@ -8,6 +10,6 @@ namespace Bloggy.Models
     public int? pointsAwarded { get; set; }
 
     public Completion() : base("", "") { }
-    public Completion(string id, string ownerId) : base(id, ownerId) { }
+    public Completion(string id, ClaimsPrincipal owner) : base(id, owner) { }
   }
 }

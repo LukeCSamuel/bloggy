@@ -1,6 +1,6 @@
 namespace Bloggy.Models
 {
-  internal class Challenge : CosmosModel
+  public class Challenge : CosmosModel, IAwardsPoints
   {
     public string? name { get; set; }
     public string? key { get; set; }

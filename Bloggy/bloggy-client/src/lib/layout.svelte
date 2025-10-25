@@ -1,7 +1,6 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
   import Footer from "./components/footer.svelte";
-  import Search from "./components/search.svelte";
   import Firework from "./icons/firework.svelte";
   import Logo from "./icons/logo.svelte";
   import Notebook from "./icons/notebook.svelte";
@@ -11,6 +10,8 @@
   import RouterOutlet from "./router/router-outlet.svelte";
   import { auth } from "./utils/auth.svelte";
   import Plus from "./icons/plus.svelte";
+  import { alertContainer } from "./utils/alerts.svelte";
+  import Alert from "./components/alert.svelte";
 
   const router = getRouter();
   let navContainer: HTMLElement;
@@ -26,6 +27,7 @@
     }, 0);
   }
 
+  let alert = $derived(alertContainer.alerts.at(0));
   let needsMiscTab = $derived(
     !["bloggy/home", "bloggy/trending", "bloggy/score"].includes(
       router.route.name,
@@ -68,6 +70,10 @@
 {#snippet defaultMiscTab()}
   Misc
 {/snippet}
+
+{#if alert}
+  <Alert {alert} />
+{/if}
 
 <div class="flex flex-col min-h-dvh">
   <header

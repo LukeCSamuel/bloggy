@@ -9,7 +9,7 @@ namespace Bloggy.Controllers
 {
   [Route("api/[controller]")]
   [ApiController]
-  public class PostController(CosmosService cosmos, ImageService imageService) : ControllerBase
+  public class PostController(CosmosService cosmos, ImageService imageService, CompletionService completionService) : ControllerBase
   {
     [HttpGet()]
     public async Task<IActionResult> GetAll()
@@ -166,6 +166,20 @@ namespace Bloggy.Controllers
       if (post is null)
       {
         return BadRequest("Post does not exist");
+      }
+
+      if (post.isTrending is true)
+      {
+        // Create a completion instead of a real comment
+        var @event = (await cosmos.GetAllAsync<Event>(e => e.trending != null && e.trending.id == post.id)).FirstOrDefault();
+        var completion = await completionService.Create(new()
+        {
+          key = commentDto.text?.Trim() ?? "",
+          eventId = @event.id,
+          challengeId = null,
+        }, User);
+
+        return Ok(completion);
       }
 
       var comment = new Comment(Guid.NewGuid().ToString(), User)

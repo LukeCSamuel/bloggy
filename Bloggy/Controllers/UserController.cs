@@ -109,6 +109,25 @@ namespace Bloggy.Controllers
 
       return Ok(dto);
     }
-    
+
+    [HttpGet("{id:guid}/completions")]
+    public async Task<IActionResult> getCompletions(string id)
+    {
+      var completions = await cosmos.GetAllAsync<Completion>(completion => completion.ownerId == id);
+      var dtos = new List<SuccessfulCompletionDto>();
+      foreach (var completion in completions)
+      {
+        var @event = completion.eventId is not null ? await cosmos.GetByIdAsync<Event>(completion.eventId) : null;
+        var challenge = completion.challengeId is not null ? await cosmos.GetByIdAsync<Challenge>(completion.challengeId) : null;
+        dtos.Add(new()
+        {
+          name = @event?.name ?? challenge?.name,
+          time = completion.time,
+          pointsAwarded = completion.pointsAwarded,
+        });
+      }
+
+      return Ok(dtos);
+    }
   }
 }

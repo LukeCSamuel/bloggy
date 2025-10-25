@@ -18,7 +18,8 @@ builder.Services
     .AddSingleton<CosmosService>()
     .AddSingleton<AuthService>()
     .AddSingleton<BlobService>()
-    .AddSingleton<ImageService>();
+    .AddSingleton<ImageService>()
+    .AddSingleton<CompletionService>();
 
 builder.Services
     .AddAuthentication(options =>

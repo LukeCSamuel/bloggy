@@ -1,5 +1,6 @@
 <script lang="ts" generics="T">
   import type { Snippet } from "svelte";
+  import { alertContainer } from "../utils/alerts.svelte";
 
   interface Props {
     promise: Promise<T>;
@@ -9,6 +10,15 @@
   }
 
   let { promise, success, missing, error }: Props = $props();
+
+  $effect(() => {
+    promise.catch(() => {
+      alertContainer.addAlert({
+        kind: "error",
+        text: "An error occurred, please reload the page.",
+      });
+    });
+  });
 </script>
 
 {#await promise}

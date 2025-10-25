@@ -1,6 +1,6 @@
 namespace Bloggy.Models
 {
-  internal class Event : CosmosModel
+  public class Event : CosmosModel, IAwardsPoints
   {
     public string? name { get; set; }
     public string? key { get; set; }
@@ -16,7 +16,7 @@ namespace Bloggy.Models
     public Event(string id) : base(id) { }
   }
 
-  internal class EventEntity
+  public class EventEntity
   {
     public string? kind { get; set; }
     public string? data { get; set; }

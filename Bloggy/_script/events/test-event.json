@@ -1,0 +1,21 @@
+{
+  "type": "Event",
+  "id": "test-event",
+  "name": "Test Event",
+  "key": "12345",
+  "maxPoints": 200,
+  "afterTime": null,
+  "afterEventId": null,
+  "trending": {
+    "type": "Post",
+    "id": "b8b9f7c8-0275-4129-b458-24c9afb30cb3",
+    "ownerId": "foo",
+    "title": "foo",
+    "images": [],
+    "text": "foo",
+    "created": "2025-10-25T00:00:00",
+    "isTrending": true
+  },
+  "entities": [],
+  "isFinale": false
+}

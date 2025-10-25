@@ -5,6 +5,8 @@
   import Author from "./author.svelte";
   import { auth } from "../utils/auth.svelte";
     import Edit from './edit.svelte';
+    import { isCompletion, isFailedCompletion } from '../entities/completion';
+    import { alertContainer } from '../utils/alerts.svelte';
 
   type Props =
     | {
@@ -36,7 +38,12 @@
 
     if (props.postId) {
       posting = true;
-      comment = await addCommentAsync(props.postId, { text: newText });
+      const result = await addCommentAsync(props.postId, { text: newText });
+      if (isCompletion(result)) {
+        alertContainer.addAlert({ completion: result }, result.pointsAwarded ? 5000 : 3000);
+      } else {
+        comment = result;
+      }
       props.refresh();
     }
   }

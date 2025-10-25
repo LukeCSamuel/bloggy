@@ -1,14 +1,16 @@
 <script lang="ts">
   import ProfilePicture from "../components/profile-picture.svelte";
+  import { tryCompletionAsync } from '../entities/completion';
   import { uploadPfpAsync } from "../entities/user";
-    import Logo from '../icons/logo.svelte';
+  import Logo from "../icons/logo.svelte";
   import { getRouter } from "../router/configure-routes.svelte";
   import Link from "../router/link.svelte";
+  import { alertContainer } from "../utils/alerts.svelte";
   import { auth, registerAsync } from "../utils/auth.svelte";
 
   const router = getRouter();
-  const nextRoute = router.route.query.from || { name: 'bloggy/home' };
-  
+  const nextRoute = router.route.query.from || { name: "bloggy/home" };
+
   // if user is already registered, go back to "from" URL
   if (auth.isAuthenticated) {
     setTimeout(() => router.navigateTo(nextRoute), 0);
@@ -26,9 +28,17 @@
       await uploadPfpAsync(blob!);
 
       if (auth.isAuthenticated) {
+        // complete event
+        await tryCompletionAsync({
+          eventId: 'register',
+          key: '',
+        });
         router.navigateTo(nextRoute);
       } else {
-        // TODO: handle error
+        alertContainer.addAlert({
+          kind: "error",
+          text: "Oopsie, an error happened",
+        });
       }
     }
   }

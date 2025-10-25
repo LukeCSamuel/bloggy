@@ -44,6 +44,8 @@ services:
     restart: unless-stopped
     mem_limit: 2G
     cpu_count: 2
+    ports:
+      - 8081:8081
     healthcheck:
       test: curl -f -k https://cosmosdb:8081/_explorer/emulator.pem || exit 1
       start_period: 120s
