@@ -2,7 +2,7 @@
 
 namespace Bloggy.Models
 {
-  internal class User : AuthorizedCosmosModel
+  public class User : AuthorizedCosmosModel
   {
     public string? name { get; set; }
     public string? pfpUrl { get; set; }

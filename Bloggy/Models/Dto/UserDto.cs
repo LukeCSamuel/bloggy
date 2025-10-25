@@ -6,4 +6,10 @@ namespace Bloggy.Models.Dto
     public string? pfpUrl { get; set; }
     public string? about { get; set; }
   }
+
+  public class UserCompletionDto
+  {
+    public required User user { get; set; }
+    public required IEnumerable<SuccessfulCompletionDto> completions { get; set; }
+  }
 }

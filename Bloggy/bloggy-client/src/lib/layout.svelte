@@ -40,7 +40,7 @@
       case "bloggy/trending":
         return "border-indigo-800";
       case "bloggy/score":
-        return "border-fuchsia-800";
+        return "border-purple-800";
       default:
         return "border-rose-800";
     }
@@ -142,7 +142,7 @@
           </div>
         {/if}
         <div
-          class="c-tab border-l-6 border-solid border-fuchsia-800 py-1 pl-2 pr-3"
+          class="c-tab border-l-6 border-solid border-purple-800 py-1 pl-2 pr-3"
         >
           <Link class="clear" route={{ name: "bloggy/score" }}>
             <Trophy /> Score

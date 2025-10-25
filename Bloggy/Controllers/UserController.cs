@@ -11,6 +11,42 @@ namespace Bloggy.Controllers
   [ApiController]
   public class UserController(CosmosService cosmos, ImageService imageService) : ControllerBase
   {
+    [HttpGet("scores")]
+    public async Task<IActionResult> GetAllUserCompletions()
+    {
+      var users = await cosmos.GetAllAsync<User>(u => u.isNpc == false);
+      var completions = await cosmos.GetAllAsync<Completion>();
+      var events = await cosmos.GetAllAsync<Event>();
+      var challenges = await cosmos.GetAllAsync<Challenge>();
+      var dtos = new List<UserCompletionDto>();
+
+      // For each user, get their completions and add to DTOs
+      foreach (var user in users)
+      {
+        var userCompletions = completions.Where(c => c.ownerId == user.id);
+        var completionDtos = new List<SuccessfulCompletionDto>();
+        foreach (var completion in userCompletions)
+        {
+          var @event = completion.eventId is not null ? events.FirstOrDefault(e => e.id == completion.eventId) : null;
+          var challenge = completion.challengeId is not null ? challenges.FirstOrDefault(c => c.id == completion.challengeId) : null;
+          completionDtos.Add(new()
+          {
+            name = @event?.name ?? challenge?.name,
+            time = completion.time,
+            pointsAwarded = completion.pointsAwarded,
+          });
+        }
+
+        dtos.Add(new()
+        {
+          user = user,
+          completions = completionDtos,
+        });
+      }
+
+      return Ok(dtos);
+    }
+
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(string id)
     {

@@ -18,7 +18,8 @@ namespace Bloggy.Controllers
       var user = new User(Guid.NewGuid().ToString())
       {
         name = register.name,
-        created = DateTime.Now
+        created = DateTime.Now,
+        isNpc = false,
       };
 
       await cosmos.UpdateAsync(user, force: true);

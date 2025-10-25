@@ -1,5 +1,6 @@
 import { alertContainer } from '../utils/alerts.svelte';
 import { api } from '../utils/api';
+import type { User } from './user';
 
 export interface SuccessfulCompletion {
   name: string;
@@ -25,6 +26,11 @@ export type CompletionRequest =
     challengeId: string;
   };
 
+export interface UserCompletion {
+  user: User;
+  completions: SuccessfulCompletion[];
+}
+
 export function isCompletion (obj: object | undefined): obj is CompletionResponse {
   return obj !== undefined && 'pointsAwarded' in obj;
 }
@@ -40,4 +46,8 @@ export async function tryCompletionAsync (req: CompletionRequest) {
       completion: result,
     }, 5000);
   }
+}
+
+export function getScoresAsync () {
+  return api.getJsonAsync<UserCompletion[]>('api/user/scores');
 }
