@@ -44,14 +44,16 @@
       </Link>
     </li>
     <li>
-      <Link href="#discover-feed"> Discover Feed and Recommender Systems </Link>
+      <Link href="#discover-feed">Discover Feed and Recommender Systems</Link>
     </li>
     <li><Link href="#termination">Termination</Link></li>
     <li><Link href="#third-party-services">Third-Party Services</Link></li>
     <li><Link href="#open-source-software">Open Source Software</Link></li>
     <li><Link href="#warranty-disclaimer">Warranty Disclaimer</Link></li>
     <li><Link href="#indemnification">Indemnification</Link></li>
-    <li><Link href="#limitation-of-liability">Limitation of Liability</Link></li>
+    <li>
+      <Link href="#limitation-of-liability">Limitation of Liability</Link>
+    </li>
     <li>
       <Link href="#governing-law-dispute-resolution">
         Governing Law, Jurisdiction, Venue, Dispute Resolution, and Arbitration
@@ -131,15 +133,17 @@
       <u>Your Responsibility.</u>
       You are solely responsible for your Content. You agree that your Content will
       comply with all applicable laws and with the Bloggy
-      <Link route={{ name: 'support/community-guidelines' }}>Community Guidelines</Link>. Bloggy is not
-      obligated to actively monitor or control your Content.
+      <Link route={{ name: "support/community-guidelines" }}
+        >Community Guidelines</Link
+      >. Bloggy is not obligated to actively monitor or control your Content.
     </li>
     <li>
       <u>Use by Others.</u>
       Bloggy does not control how others may use your Content. If you believe someone
       is using your Content in a way that violates these Terms or the
-      <Link route={{ name: 'support/community-guidelines' }}>Community Guidelines</Link>, please follow
-      the Complaints and Appeals process outlined below.
+      <Link route={{ name: "support/community-guidelines" }}
+        >Community Guidelines</Link
+      >, please follow the Complaints and Appeals process outlined below.
     </li>
     <li>
       <u>Bloggy's Use of Your Content.</u>
@@ -173,8 +177,9 @@
         <li>
           <strong>Enforce Our Policies:</strong>
           Remove, block, or modify your Content if we believe it violates these Terms,
-          our <Link route={{ name: 'support/community-guidelines' }}>Community Guidelines</Link>, or
-          other applicable policies.
+          our <Link route={{ name: "support/community-guidelines" }}
+            >Community Guidelines</Link
+          >, or other applicable policies.
         </li>
         <li>
           <strong>Sell These Rights:</strong>
@@ -189,7 +194,7 @@
       <u>Content Deletion.</u>
       If you delete your account, we will use reasonable efforts to remove your Content
       from Bloggy, in accordance with applicable laws and with our
-      <Link route={{ name: 'support/privacy' }}>Privacy Policy</Link>.
+      <Link route={{ name: "support/privacy" }}>Privacy Policy</Link>.
     </li>
   </ol>
 
@@ -209,7 +214,16 @@
   <h2 id="discover-feed">5. Discover Feed and Recommender Systems</h2>
   <p>
     Bloggy uses a recommender algorithm to populate the Discover Feed and
-    personalize recommendations such as suggested accounts.
+    personalize recommendations such as suggested accounts. This toxic feedback
+    loop might bring the uncontrollable downfall of society, but to make amends
+    you can have <Link
+      route={{
+        name: "bloggy/challenge",
+        params: { challengeId: "terms-of-service" },
+      }}
+    >
+      some points.
+    </Link>
   </p>
 
   <h2 id="termination">6. Termination</h2>
@@ -572,12 +586,14 @@
     <li>
       <u>Entire Agreement.</u>
       These Terms, together with the Bloggy
-      <Link route={{ name: 'support/community-guidelines' }}>Community Guidelines</Link>, and
-      <Link route={{ name: 'support/privacy' }}>Privacy Policy</Link>, constitute the complete and
-      exclusive agreement between you and Bloggy regarding your use of Bloggy.
-      They supersede and replace any prior or contemporaneous agreements,
-      understandings, or communications—whether oral or written—between you and
-      Bloggy concerning the same subject matter.
+      <Link route={{ name: "support/community-guidelines" }}
+        >Community Guidelines</Link
+      >, and
+      <Link route={{ name: "support/privacy" }}>Privacy Policy</Link>,
+      constitute the complete and exclusive agreement between you and Bloggy
+      regarding your use of Bloggy. They supersede and replace any prior or
+      contemporaneous agreements, understandings, or communications—whether oral
+      or written—between you and Bloggy concerning the same subject matter.
       <br />
       If any provision of these Terms is determined to be invalid or unenforceable
       by an arbitrator or court, it will be enforced to the maximum extent permitted

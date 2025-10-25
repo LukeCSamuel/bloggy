@@ -18,7 +18,8 @@ namespace Bloggy.Services
       // Check if the user already has a completion for this event
       var existing = await cosmos.GetAllAsync<Completion>(c =>
         c.ownerId == completion.ownerId
-        && (c.challengeId == completion.challengeId || c.eventId == completion.eventId)
+        && c.challengeId == completion.challengeId
+        && c.eventId == completion.eventId
       );
       if (existing.FirstOrDefault() is Completion _existing)
       {

@@ -1,7 +1,7 @@
 {
   "type": "Challenge",
   "id": "fortune",
-  "name": "Fortune Cookie",
+  "name": "Fortune cookie",
   "key": "fortune",
   "maxPoints": 20
 }
