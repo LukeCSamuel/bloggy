@@ -19,7 +19,8 @@ builder.Services
     .AddSingleton<AuthService>()
     .AddSingleton<BlobService>()
     .AddSingleton<ImageService>()
-    .AddSingleton<CompletionService>();
+    .AddSingleton<CompletionService>()
+    .AddSingleton<ScriptRunnerService>();
 
 builder.Services
     .AddAuthentication(options =>

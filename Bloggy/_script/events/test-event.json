@@ -7,15 +7,16 @@
   "afterTime": null,
   "afterEventId": null,
   "trending": {
-    "type": "Post",
-    "id": "b8b9f7c8-0275-4129-b458-24c9afb30cb3",
-    "ownerId": "foo",
-    "title": "foo",
+    "ownerId": "test-user",
+    "title": "This is a scripted post",
     "images": [],
-    "text": "foo",
-    "created": "2025-10-25T00:00:00",
-    "isTrending": true
+    "text": "foo"
   },
-  "entities": [],
+  "entities": [
+    {
+      "kind": "User",
+      "data": "{\"id\":\"test-user\",\"ownerId\":\"bo\",\"name\":\"Bo Jangle\",\"created\":\"%%NOW%%\",\"isNpc\":true,\"about\":\"I'm a dickhead\"}"
+    }
+  ],
   "isFinale": false
 }

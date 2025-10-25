@@ -65,7 +65,7 @@ namespace Bloggy.Controllers
       return Ok(dto);
     }
 
-    [HttpGet("{id:guid}")]
+    [HttpGet("{id}")]
     public async Task<IActionResult> Get(string id)
     {
       var post = await cosmos.GetByIdAsync<Post>(id);
@@ -118,7 +118,7 @@ namespace Bloggy.Controllers
     }
 
     [Authorize]
-    [HttpPost("{id:guid}/add-image")]
+    [HttpPost("{id}/add-image")]
     public async Task<IActionResult> AddImage(string id)
     {
       await cosmos.AuthorizeAsync<Post>(id, User);
@@ -158,7 +158,7 @@ namespace Bloggy.Controllers
     }
 
     [Authorize]
-    [HttpPost("{id:guid}/add-comment")]
+    [HttpPost("{id}/add-comment")]
     public async Task<IActionResult> AddComment(string id, [FromBody] CommentCreateDto commentDto)
     {
       // Verify that the post exists

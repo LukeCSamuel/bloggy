@@ -4,7 +4,7 @@ using Bloggy.Models.Dto;
 
 namespace Bloggy.Services
 {
-  public class CompletionService(CosmosService cosmos)
+  public class CompletionService(CosmosService cosmos, ScriptRunnerService runner)
   {
     public async Task<ICompletionResponseDto> Create(CompletionRequestDto dto, ClaimsPrincipal user)
     {
@@ -109,6 +109,7 @@ namespace Bloggy.Services
       }
 
       await cosmos.UpdateAsync(completion, user);
+      _ = runner.CheckEventsAfterCompletion(completion);
       return new SuccessfulCompletionDto()
       {
         name = @event?.name ?? challenge?.name,

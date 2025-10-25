@@ -10,6 +10,7 @@ namespace Bloggy.Models
     public Post? trending { get; set; }
     public List<EventEntity>? entities { get; set; }
     public bool? isFinale { get; set; }
+    public bool? hasTriggered { get; set; }
 
 
     public Event() : base("") { }

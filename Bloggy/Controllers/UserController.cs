@@ -11,7 +11,7 @@ namespace Bloggy.Controllers
   [ApiController]
   public class UserController(CosmosService cosmos, ImageService imageService) : ControllerBase
   {
-    [HttpGet("{id:guid}")]
+    [HttpGet("{id}")]
     public async Task<IActionResult> Get(string id)
     {
       var user = await cosmos.GetByIdAsync<User>(id);
@@ -26,7 +26,7 @@ namespace Bloggy.Controllers
     }
 
     [Authorize]
-    [HttpPost("{id:guid}")]
+    [HttpPost("{id}")]
     public async Task<IActionResult> updateUser(string id, [FromBody] UserUpdateDto dto)
     {
       var user = await cosmos.GetByIdAsync<User>(id);
@@ -45,7 +45,7 @@ namespace Bloggy.Controllers
 
 
     [Authorize]
-    [HttpPost("{id:guid}/pfp")]
+    [HttpPost("{id}/pfp")]
     public async Task<IActionResult> SetPfp(string id)
     {
       await cosmos.AuthorizeAsync<User>(id, User);
@@ -83,7 +83,7 @@ namespace Bloggy.Controllers
       }
     }
 
-    [HttpGet("{id:guid}/posts")]
+    [HttpGet("{id}/posts")]
     public async Task<IActionResult> getPosts(string id)
     {
       var authorIds = new HashSet<string>([id]);
@@ -110,7 +110,7 @@ namespace Bloggy.Controllers
       return Ok(dto);
     }
 
-    [HttpGet("{id:guid}/completions")]
+    [HttpGet("{id}/completions")]
     public async Task<IActionResult> getCompletions(string id)
     {
       var completions = await cosmos.GetAllAsync<Completion>(completion => completion.ownerId == id);
